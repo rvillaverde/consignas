@@ -63,7 +63,6 @@ const Task: React.FunctionComponent<PropTypes> = ({
           </span>
         </div>
       )}
-      {loading && <span>Loading...</span>}
       <div className={styles.description}>
         {task ? (
           task.description
@@ -84,7 +83,7 @@ const Task: React.FunctionComponent<PropTypes> = ({
             <Button disabled={loading} onClick={onLike} type="secondary">
               {`Me gusta (${task.likes})`}
             </Button>
-            <Button disabled={loading} onClick={onReport} type="secondary">
+            <Button disabled={loading} onClick={onReport} type="tertiary">
               {`Reportar (${task.reports})`}
             </Button>
           </>
