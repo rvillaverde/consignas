@@ -1,0 +1,24 @@
+$background: url('/background.jpeg')
+
+$primary-color: #264653
+$secondary-color: #35605A
+$tertiary-color: #E9C46A
+$white: white
+
+$breakpoints: ("small": 640px, "medium": 992px,"large": 1200px)
+
+@mixin media-query($min: 0, $max: 0)
+  $min-width: map-get($breakpoints, $min)
+  $max-width: map-get($breakpoints, $max)
+
+  @if $min == 0
+    @media screen and (max-width: $max-width)
+      @content
+
+  @else if $max == 0
+    @media screen and (min-width: $min-width + 1)
+      @content
+
+  @else
+    @media screen and (min-width: $min-width + 1) and (max-width: $max-width)
+      @content

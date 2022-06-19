@@ -1,0 +1,24 @@
+@import "../../../styles/partials/_variables"
+
+.random-task
+  align-items: center
+  display: flex
+  flex-direction: column
+  justify-content: center
+  width: 100%
+  margin-top: 2rem
+
+  @include media-query(0, small)
+    flex-grow: 1
+    margin-top: 1rem
+
+.actions
+  display: flex
+  align-items: center
+  margin-top: 2rem
+
+  > *:not(:first-child)
+    margin-left: 1rem
+
+  @include media-query(0, small)
+    margin-top: 1rem
