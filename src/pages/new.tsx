@@ -1,12 +1,12 @@
 import type { NextPage } from 'next';
+import { useState } from 'react';
+import taskApi from '../api/task';
+import Button from '../components/button';
 import Head from '../components/head';
 import TaskComponent from '../components/task';
 import { Task } from '../services/task';
 
 import styles from '../../styles/Home.module.sass';
-import taskApi from '../api/task';
-import { useState } from 'react';
-import Button from '../components/button';
 
 const Home: NextPage = () => {
   const [saving, setSaving] = useState<boolean>(false);

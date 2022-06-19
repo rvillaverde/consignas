@@ -38,7 +38,7 @@ class DescriptionInput extends React.Component<PropTypes> {
         onChange={this.handleChange}
         onKeyUp={this.handleKeyUp}
         type="text"
-        placeholder="Escribí acá tu consigna"
+        placeholder="Escribí tu consigna acá"
         ref={this.ref}
       ></input>
     );
