@@ -3,20 +3,22 @@ import Head from '../components/head';
 import RandomTask from '../components/random-task';
 
 import styles from '../../styles/Home.module.sass';
+import Link from 'next/link';
 
-const Random: NextPage = () => {
-  console.log('Random');
-  return (
-    <div className={styles.container}>
-      <Head />
+const Random: NextPage = () => (
+  <div className={styles.container}>
+    <Head />
 
-      <main className={styles.main}>
-        <h1 className={styles.title}>Consignas fotográficas!</h1>
+    <main className={styles.main}>
+      <Link href="/">
+        <a>
+          <h1 className={styles.title}>Consignas fotográficas!</h1>
+        </a>
+      </Link>
 
-        <RandomTask />
-      </main>
-    </div>
-  );
-};
+      <RandomTask />
+    </main>
+  </div>
+);
 
 export default Random;

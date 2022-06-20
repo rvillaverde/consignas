@@ -14,6 +14,7 @@ a
 
 *
   box-sizing: border-box
+  -webkit-tap-highlight-color: transparent
 
 h1
   color: $tertiary-color
@@ -44,16 +45,16 @@ h1
   &:active
     transform: scale(0.96)
   &::before
-    content: ""
-    position: absolute
-    width: 0
-    height: 100%
-    top: 0
-    left: 0
-    z-index: 0
-    transition: width 0.3s ease-in-out
     border-radius: 2rem
     border: 0 solid
+    content: ""
+    height: 100%
+    left: 0
+    position: absolute
+    top: 0
+    transition: width 0.3s ease-in-out
+    width: 0
+    z-index: 0
   .button-content
     font-weight: 300
     position: relative
@@ -72,7 +73,7 @@ h1
     transition: width 0.3s ease-in-out
 
 .button-secondary
-  background-color: transparent
+  background-color: rgba(255,255,255, 0.1)
   border-color: $secondary-color
   color: $secondary-color
   &:not(.button-disabled)::before
@@ -98,12 +99,13 @@ h1
   pointer-events: none
 
 .actions
-  align-items: center
   display: flex
   justify-content: center
   padding: 1rem
 
   @include media-query(small)
+    align-items: center
+
     > .button:not(:first-child)
       margin-left: 1rem
 
