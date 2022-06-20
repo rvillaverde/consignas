@@ -15,7 +15,7 @@ const Home: NextPage = () => {
         <div className={styles.card}>
           <p>
             Consignas fotográficas es un proyecto colaborativo en donde podés
-            obtener una consigna aleatorea que funcione como un disparador de
+            obtener una consigna aleatoria que funcione como un disparador de
             idea, serie o proyecto fotográfico a desarrollar o simplemente como
             un desbloqueo creativo para sacar la cámara con una idea puntual en
             la cabeza.
