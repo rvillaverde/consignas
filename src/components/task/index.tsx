@@ -77,7 +77,7 @@ const Task: React.FunctionComponent<PropTypes> = ({
             {task.description}
           </span>
           <span className={styles['task-image-watermark']}>
-            Consignas fotográficas.
+            consignasfotograficas.com
           </span>
         </div>
       )}
