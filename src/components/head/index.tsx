@@ -10,6 +10,7 @@ class Head extends React.Component {
         <meta name="description" content="Consignas fotográficas" />
         <link rel="icon" href="/favicon.ico" />
         <link rel="stylesheet" href="https://use.typekit.net/amq7kpd.css" />
+        <meta name="theme-color" content="#521945"></meta>
       </NextHead>
     );
   }
