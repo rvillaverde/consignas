@@ -1,5 +1,5 @@
-import React from "react";
-import NextHead from "next/head";
+import React from 'react';
+import NextHead from 'next/head';
 
 class Head extends React.Component {
   render() {

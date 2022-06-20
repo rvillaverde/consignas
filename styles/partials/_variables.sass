@@ -1,9 +1,11 @@
 $background: url('/background-01.jpeg')
-// $background: url('/background.jpeg')
 
 $primary-color: #9A98B5
 $secondary-color: #A0335F
 $tertiary-color: #521945
+
+$dark-gray: #3D272F
+
 $white: white
 
 $breakpoints: ("small": 640px, "medium": 992px,"large": 1200px)
@@ -23,3 +25,17 @@ $breakpoints: ("small": 640px, "medium": 992px,"large": 1200px)
   @else
     @media screen and (min-width: $min-width + 1) and (max-width: $max-width)
       @content
+
+.card
+  align-items: center
+  background-color: rgba(255,255,255,0.6)
+  border-radius: 1.5rem
+  display: flex
+  flex-direction: column
+  justify-content: center
+  min-height: 20rem
+  width: 40rem
+
+  @include media-query(0, small)
+    flex-grow: 1
+    width: 100%

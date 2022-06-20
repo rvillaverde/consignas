@@ -14,3 +14,16 @@
   flex-direction: column
   justify-content: center
   align-items: center
+
+.card
+  @extend .card
+  margin-top: 0.5rem
+  padding: 2rem
+
+  p
+    color: $dark-gray
+    line-height: 1.5rem
+    &:first-child
+      margin-top: 0
+    &:last-child
+      margin-bottom: 0

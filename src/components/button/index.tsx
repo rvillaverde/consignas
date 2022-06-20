@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import Link from 'next/link';
 import React from 'react';
 
@@ -16,13 +17,21 @@ const Button: React.FunctionComponent<PropTypes> = ({
   onClick,
   type,
 }: PropTypes) => {
+  const className = classNames(
+    'button',
+    `button-${type}`,
+    disabled && 'button-disabled',
+  );
+
+  const content: JSX.Element = <div className="button-content">{children}</div>;
+
   return href ? (
     <Link href={href}>
-      <a className={`button-${type}`}>{children}</a>
+      <a className={className}>{content}</a>
     </Link>
   ) : (
-    <button className={`button-${type}`} disabled={disabled} onClick={onClick}>
-      {children}
+    <button className={className} disabled={disabled} onClick={onClick}>
+      {content}
     </button>
   );
 };

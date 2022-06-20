@@ -1,12 +1,13 @@
 import type { NextPage } from 'next';
 import { useState } from 'react';
 import taskApi from '../api/task';
-import Button from '../components/button';
 import Head from '../components/head';
 import TaskComponent from '../components/task';
 import { Task } from '../services/task';
 
 import styles from '../../styles/Home.module.sass';
+import Success from '../components/new-task/success';
+import Error from '../components/new-task/error';
 
 const Home: NextPage = () => {
   const [saving, setSaving] = useState<boolean>(false);
@@ -35,27 +36,12 @@ const Home: NextPage = () => {
       <Head />
 
       <main className={styles.main}>
-        <h1 className={styles.title}>Nueva consigna:</h1>
+        {!created && <h1 className={styles.title}>Nueva consigna:</h1>}
 
         {created ? (
-          <div>
-            <p>Gracias! Tu consigna ha sido creada.</p>
-            <Button onClick={handleNewTask} type="primary">
-              Crear otra consigna
-            </Button>
-            <Button href="/" type="secondary">
-              Ir al inicio
-            </Button>
-          </div>
+          <Success onNewTask={handleNewTask} />
         ) : error ? (
-          <div>
-            <p>
-              Hubo un error al crear tu consigna. Por favor intentalo más tarde
-            </p>
-            <Button href="/" type="primary">
-              Ir al inicio
-            </Button>
-          </div>
+          <Error />
         ) : (
           <TaskComponent loading={saving} onSave={handleSave} />
         )}

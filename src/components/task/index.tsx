@@ -23,6 +23,9 @@ const Task: React.FunctionComponent<PropTypes> = ({
   task,
 }: PropTypes) => {
   const [description, setDescription] = useState<string>('');
+  const [disableLike, setDisableLike] = useState<boolean>(false);
+  const [disableReport, setDisableReport] = useState<boolean>(false);
+
   const ref = useRef<HTMLHeadingElement>(null);
 
   const handleChange = (input: string) => {
@@ -54,12 +57,27 @@ const Task: React.FunctionComponent<PropTypes> = ({
     }
   };
 
+  const handleLike = async () => {
+    onLike && (await onLike());
+    setDisableLike(true);
+    setDisableReport(true);
+  };
+
+  const handleReport = async () => {
+    onReport && (await onReport());
+    setDisableLike(true);
+    setDisableReport(true);
+  };
+
   return (
     <div className={styles.task}>
       {task && (
         <div className={styles['task-image']} ref={ref}>
           <span className={styles['task-image-description']}>
             {task.description}
+          </span>
+          <span className={styles['task-image-watermark']}>
+            Consignas fotográficas.
           </span>
         </div>
       )}
@@ -74,16 +92,24 @@ const Task: React.FunctionComponent<PropTypes> = ({
           />
         )}
       </div>
-      <div className={styles.actions}>
+      <div className="actions">
         {task ? (
           <>
             <Button disabled={loading} onClick={handleDownload} type="primary">
               Descargar
             </Button>
-            <Button disabled={loading} onClick={onLike} type="secondary">
+            <Button
+              disabled={loading || !!disableLike}
+              onClick={handleLike}
+              type="secondary"
+            >
               {`Me gusta (${task.likes})`}
             </Button>
-            <Button disabled={loading} onClick={onReport} type="tertiary">
+            <Button
+              disabled={loading || !!disableReport}
+              onClick={handleReport}
+              type="tertiary"
+            >
               {`Reportar (${task.reports})`}
             </Button>
           </>

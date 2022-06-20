@@ -18,33 +18,98 @@ a
 h1
   color: $tertiary-color
   font-size: 40px
-  margin: 0
-  // text-shadow: 0px 0px 12px #2a2828
-
-.button-primary, .button-secondary, .button-tertiary
-  border: none
-  outline: none
-  cursor: pointer
-  padding: 0.5rem 2rem
   line-height: 1
-  font-size: 1rem
-  font-family: inherit
-  border-width: 1px
+  margin: 0
+  margin-bottom: 0.5rem
+
+.button
+  align-items: center
+  border-radius: 2rem
   border-style: solid
-  border-radius: 0.25rem
+  border-width: 0.02rem
+  cursor: pointer
+  display: flex
+  font-family: inherit
+  font-size: 1rem
+  justify-content: center
+  line-height: 1
+  min-height: 2.25rem
+  outline: none
+  overflow: hidden
+  padding: 0.5rem 2rem
+  position: relative
   text-align: center
+  transition: transform 0.1s ease-in-out
+  user-select: none
+  &:active
+    transform: scale(0.96)
+  &::before
+    content: ""
+    position: absolute
+    width: 0
+    height: 100%
+    top: 0
+    left: 0
+    z-index: 0
+    transition: width 0.3s ease-in-out
+    border-radius: 2rem
+    border: 0 solid
+  .button-content
+    font-weight: 300
+    position: relative
+    z-index: 1
 
 .button-primary
   background-color: $secondary-color
   border-color: $secondary-color
   color: $white
+  &::before
+    border-color: $tertiary-color
+  &:not(.button-disabled):hover::before
+    width: 100%
+    background-color: $tertiary-color
+    border-width: 0.02rem
+    transition: width 0.3s ease-in-out
 
 .button-secondary
-  background-color: $white
+  background-color: transparent
   border-color: $secondary-color
   color: $secondary-color
+  &:not(.button-disabled)::before
+    border-color: $secondary-color
+  &:not(.button-disabled):hover::before
+    width: 100%
+    background-color: $secondary-color
+    opacity: 0.1
+    border-width: 0.02rem
+    transition: width 0.3s ease-in-out
 
 .button-tertiary
   background-color: transparent
   border-color: transparent
-  color: $primary-color
+  color: $secondary-color
+  transition: color 0.3s ease-in-out
+  &:not(.button-disabled):hover
+    color: $tertiary-color
+
+.button.button-disabled
+  cursor: auto
+  opacity: 0.5
+  pointer-events: none
+
+.actions
+  align-items: center
+  display: flex
+  justify-content: center
+  padding: 1rem
+
+  @include media-query(small)
+    > .button:not(:first-child)
+      margin-left: 1rem
+
+  @include media-query(0, small)
+    flex-direction: column
+    width: 100%
+
+    > .button:not(:first-child)
+      margin-top: 0.5rem

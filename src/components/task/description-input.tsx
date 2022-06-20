@@ -9,7 +9,7 @@ interface PropTypes {
 }
 
 class DescriptionInput extends React.Component<PropTypes> {
-  ref: RefObject<HTMLInputElement> = React.createRef();
+  ref: RefObject<HTMLTextAreaElement> = React.createRef();
 
   componentDidMount = () => {
     if (this.ref.current) {
@@ -17,14 +17,14 @@ class DescriptionInput extends React.Component<PropTypes> {
     }
   };
 
-  handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    return this.props.onChange(e.target.value);
-  };
+  handleChange = (e: ChangeEvent<HTMLTextAreaElement>) =>
+    this.props.onChange(e.target.value);
 
-  handleKeyUp = (e: React.KeyboardEvent) => {
+  handleKeyDown = (e: React.KeyboardEvent) => {
     const { onSubmit, value } = this.props;
 
     if (e.code === 'Enter') {
+      e.preventDefault();
       if (value.length) {
         onSubmit();
       }
@@ -33,14 +33,14 @@ class DescriptionInput extends React.Component<PropTypes> {
 
   render() {
     return (
-      <input
+      <textarea
         className={styles.input}
         onChange={this.handleChange}
-        onKeyUp={this.handleKeyUp}
-        type="text"
-        placeholder="Escribí tu consigna acá"
+        onKeyPress={this.handleKeyDown}
+        // type="text"
+        // placeholder="Escribí tu consigna acá"
         ref={this.ref}
-      ></input>
+      ></textarea>
     );
   }
 }

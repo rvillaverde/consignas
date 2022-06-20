@@ -1,30 +1,35 @@
 @import "../../../styles/partials/_variables"
 
 .task, .task-image
-  align-items: center
-  background-color: rgba(255,255,255,0.6)
-  display: flex
-  flex-direction: column
-  height: 20rem
-  justify-content: center
-  width: 40rem
+  @extend .card
 
-  @include media-query(0, small)
-    flex-grow: 1
-    width: 100%
+.task
+  margin-bottom: 0.5rem
 
 .task-image
   background-blend-mode: overlay
   background-image: $background
   background-position: center
   background-size: cover
+  border-radius: 10
+  padding: 4rem
   position: absolute
+  min-height: 14rem
   z-index: -1
 
   .task-image-description
     color: $secondary-color
     position: relative
     text-align: center
+
+  .task-image-watermark
+    bottom: 0
+    color: $tertiary-color
+    font-size: 0.6rem
+    opacity: 0.3
+    padding: 2rem
+    position: absolute
+    right: 0
 
   &::before
     background-color: rgba(255,255,255,0.6)
@@ -42,24 +47,9 @@
   flex-grow: 1
   font-size: 24px
   justify-content: center
-  padding: 1rem
+  padding: 2rem
   text-align: center
   width: 100%
-
-.actions
-  display: flex
-  padding: 1rem
-
-  @include media-query(small)
-    > *:not(:first-child)
-      margin-left: 1rem
-
-  @include media-query(0, small)
-    flex-direction: column
-    width: 100%
-
-    > *:not(:first-child)
-      margin-top: 0.5rem
 
 .input
   background: transparent
@@ -69,4 +59,6 @@
   font-size: 24px
   height: 100%
   outline: none
+  resize: none
+  text-align: center
   width: 100%

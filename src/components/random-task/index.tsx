@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import taskApi from '../../api/task';
 import { Task } from '../../services/task';
 import Button from '../button';
@@ -11,6 +11,12 @@ const RandomTask: React.FunctionComponent = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [saving, setSaving] = useState<boolean>(false);
   const [task, setTask] = useState<Task | undefined>();
+
+  useEffect(() => {
+    if (!task && !loading) {
+      refreshTask();
+    }
+  }, []);
 
   const refreshTask = async () => {
     setLoading(true);
@@ -51,9 +57,9 @@ const RandomTask: React.FunctionComponent = () => {
           task={task}
         />
       )}
-      <div className={styles.actions}>
+      <div className="actions">
         <Button onClick={refreshTask} type="primary">
-          {task ? 'Nueva consigna' : 'Pedir consigna'}
+          Nueva consigna
         </Button>
         <Button href="/new" type="secondary">
           Crear consigna
