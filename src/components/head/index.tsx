@@ -8,7 +8,7 @@ class Head extends React.Component {
         <title>Consignas fotográficas</title>
         <meta name="mobile-web-app-capable" content="yes"></meta>
         <meta name="description" content="Consignas fotográficas" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/favicon.png" />
         <meta name="theme-color" content="#521945"></meta>
         <meta
           property="og:url"
