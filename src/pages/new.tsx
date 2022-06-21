@@ -41,7 +41,7 @@ const Home: NextPage = () => {
         {created ? (
           <Success onNewTask={handleNewTask} />
         ) : error ? (
-          <Error />
+          <Error onNewTask={handleNewTask} />
         ) : (
           <TaskComponent loading={saving} onSave={handleSave} />
         )}

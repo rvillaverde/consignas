@@ -32,15 +32,17 @@ class DescriptionInput extends React.Component<PropTypes> {
   };
 
   render() {
+    const { value } = this.props;
+
     return (
-      <textarea
-        className={styles.input}
-        onChange={this.handleChange}
-        onKeyPress={this.handleKeyDown}
-        // type="text"
-        // placeholder="Escribí tu consigna acá"
-        ref={this.ref}
-      ></textarea>
+      <div className={styles['description-input']} data-value={value}>
+        <textarea
+          onChange={this.handleChange}
+          onKeyPress={this.handleKeyDown}
+          ref={this.ref}
+          value={value}
+        />
+      </div>
     );
   }
 }

@@ -9,20 +9,18 @@ interface PropTypes {
 
 const Success: React.FunctionComponent<PropTypes> = ({
   onNewTask,
-}: PropTypes) => {
-  return (
-    <div className={styles.success}>
-      <p>Gracias! Tu consigna ha sido creada.</p>
-      <div className="actions">
-        <Button onClick={onNewTask} type="primary">
-          Crear otra consigna
-        </Button>
-        <Button href="/" type="secondary">
-          Ir al inicio
-        </Button>
-      </div>
+}: PropTypes) => (
+  <div className={styles.success}>
+    <p>Gracias! Tu consigna ha sido creada.</p>
+    <div className="actions">
+      <Button onClick={onNewTask} type="primary">
+        Crear otra consigna
+      </Button>
+      <Button href="/" type="secondary">
+        Ir al inicio
+      </Button>
     </div>
-  );
-};
+  </div>
+);
 
 export default Success;

@@ -58,11 +58,11 @@ const RandomTask: React.FunctionComponent = () => {
         />
       )}
       <div className="actions">
-        <Button onClick={refreshTask} type="primary">
-          Nueva consigna
-        </Button>
-        <Button href="/new" type="secondary">
+        <Button href="/new" type="primary">
           Crear consigna
+        </Button>
+        <Button onClick={refreshTask} type="secondary">
+          Nueva consigna
         </Button>
       </div>
     </div>

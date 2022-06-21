@@ -52,7 +52,20 @@
   text-align: center
   width: 100%
 
-.input
+.description-input
+  display: grid
+  width: 100%
+
+  &::before
+    content: attr(data-value)
+    visibility: hidden
+
+.description-input::before,
+.description-input > textarea
+  grid-area: 1 / 1 / 2 / 2
+  padding: 0
+
+.description-input > textarea
   background: transparent
   border: none
   color: $secondary-color
@@ -60,6 +73,7 @@
   font-size: 24px
   height: 100%
   outline: none
+  overflow: hidden
   resize: none
   text-align: center
   width: 100%
