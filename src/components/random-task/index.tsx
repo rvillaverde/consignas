@@ -4,12 +4,14 @@ import { Task } from '../../services/task';
 import Button from '../button';
 import Loading from '../loading';
 import TaskComponent from '../task';
+import Error from './error';
 
 import styles from './random-task.module.sass';
 
 const RandomTask: React.FunctionComponent = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [saving, setSaving] = useState<boolean>(false);
+  const [error, setError] = useState<boolean>(false);
   const [task, setTask] = useState<Task | undefined>();
 
   useEffect(() => {
@@ -20,9 +22,17 @@ const RandomTask: React.FunctionComponent = () => {
 
   const refreshTask = async () => {
     setLoading(true);
-    const task = await taskApi.random();
-    setTask(task);
-    setLoading(false);
+    try {
+      const task = await taskApi.random();
+
+      setTimeout(() => {
+        setTask(task);
+        setLoading(false);
+      }, 3000);
+    } catch {
+      setLoading(false);
+      setError(true);
+    }
   };
 
   const handleLike = async () => {
@@ -57,14 +67,18 @@ const RandomTask: React.FunctionComponent = () => {
           task={task}
         />
       )}
-      <div className="actions">
-        <Button href="/new" type="primary">
-          Crear consigna
-        </Button>
-        <Button onClick={refreshTask} type="secondary">
-          Nueva consigna
-        </Button>
-      </div>
+      {error ? (
+        <Error />
+      ) : (
+        <div className="actions">
+          <Button href="/new" type="primary">
+            Crear consigna
+          </Button>
+          <Button onClick={refreshTask} type="secondary">
+            Nueva consigna
+          </Button>
+        </div>
+      )}
     </div>
   );
 };
