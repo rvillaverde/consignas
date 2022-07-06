@@ -110,7 +110,7 @@ const Task: React.FunctionComponent<PropTypes> = ({
               onClick={handleReport}
               type="tertiary"
             >
-              {`Reportar (${task.reports})`}
+              Reportar
             </Button>
           </>
         ) : (

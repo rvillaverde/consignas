@@ -23,6 +23,10 @@ const taskApi = {
 
     return res.json();
   },
+  list: async (): Promise<Task[]> => {
+    const res = await fetch('/api/tasks/');
+    return await res.json();
+  },
   random: async (): Promise<Task> => {
     const res = await fetch('/api/tasks/random');
     return await res.json();

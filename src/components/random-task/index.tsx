@@ -4,14 +4,19 @@ import { Task } from '../../services/task';
 import Button from '../button';
 import Loading from '../loading';
 import TaskComponent from '../task';
-import Error from './error';
 
 import styles from './random-task.module.sass';
 
-const RandomTask: React.FunctionComponent = () => {
+interface PropTypes {
+  tasks: Task[];
+}
+
+const RandomTask: React.FunctionComponent<PropTypes> = ({
+  tasks,
+}: PropTypes) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [saving, setSaving] = useState<boolean>(false);
-  const [error, setError] = useState<boolean>(false);
+  const [emptyStack, setEmptyStack] = useState<boolean>(false);
   const [task, setTask] = useState<Task | undefined>();
 
   useEffect(() => {
@@ -22,17 +27,17 @@ const RandomTask: React.FunctionComponent = () => {
 
   const refreshTask = async () => {
     setLoading(true);
-    try {
-      const task = await taskApi.random();
 
-      setTimeout(() => {
+    setTimeout(() => {
+      const task = tasks.shift();
+      if (task) {
         setTask(task);
-        setLoading(false);
-      }, 3000);
-    } catch {
+      } else {
+        setTask(undefined);
+        setEmptyStack(true);
+      }
       setLoading(false);
-      setError(true);
-    }
+    }, 3000);
   };
 
   const handleLike = async () => {
@@ -67,18 +72,24 @@ const RandomTask: React.FunctionComponent = () => {
           task={task}
         />
       )}
-      {error ? (
-        <Error />
-      ) : (
-        <div className="actions">
-          <Button href="/new" type="primary">
-            Crear consigna
-          </Button>
+      {emptyStack && (
+        <div className={styles['empty-stack']}>
+          <strong>Uia...!</strong>
+          En este momento no tenemos más consignas para ofrecerte.
+          <br />
+          Creá una nueva para sumar más consignas al proyecto!
+        </div>
+      )}
+      <div className="actions">
+        <Button href="/new" type="primary">
+          Crear consigna
+        </Button>
+        {!emptyStack && (
           <Button onClick={refreshTask} type="secondary">
             Nueva consigna
           </Button>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 };
