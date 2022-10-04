@@ -1,21 +1,23 @@
 @import "../styles/partials/_variables.sass"
 
 .container
-  background-image: $background
+  background-image: var(--background)
   background-position: center
   background-size: cover
   max-height: 100vh
+  min-height: 100vh
   overflow: auto
-  padding: 0 2rem
+  display: flex
+  flex-direction: column
 
 .main
-  min-height: 100vh
-  padding: 2rem 0
+  padding: 2rem
   flex: 1
   display: flex
   flex-direction: column
   justify-content: center
   align-items: center
+  fleg-grow: 1
 
 .card
   @extend .card

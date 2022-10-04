@@ -1,0 +1,46 @@
+@import '../../../styles/partials/_variables'
+
+.header
+  background-color: var(--color-tertiary)
+  width: 100vw
+  padding: 1rem
+
+  @include media-query(small)
+    display: flex
+    justify-content: space-between
+
+  h1
+    color: white
+    margin: 0
+
+    @include media-query(0, small)
+      font-size: 1.5rem
+
+  menu
+    margin: 0
+    padding: 0
+
+    @include media-query(0, small)
+      margin-top: 1rem
+
+    @include media-query(small)
+      display: flex
+      margin-left: 1rem
+
+    ul
+      list-style: none
+      margin: 0
+      padding: 0
+
+      @include media-query(small)
+        display: flex
+
+      li
+        color: $white
+        display: flex
+
+        a
+          align-items: center
+          display: flex
+          text-transform: uppercase
+          letter-spacing: 0.1rem

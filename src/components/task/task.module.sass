@@ -8,7 +8,8 @@
 
 .task-image
   background-blend-mode: overlay
-  background-image: $background
+  // background-image: $background
+  background-image: var(--background)
   background-position: center
   background-size: cover
   border-radius: 0
@@ -28,13 +29,13 @@
     z-index: 0
 
   .task-image-description
-    color: $secondary-color
+    color: var(--color-secondary)
     position: relative
     text-align: center
 
   .task-image-watermark
     bottom: 0
-    color: $tertiary-color
+    color: var(--color-tertiary)
     font-size: 0.6rem
     opacity: 0.3
     padding: 2rem
@@ -43,7 +44,7 @@
 
 .description
   align-items: center
-  color: $secondary-color
+  color: var(--color-secondary)
   display: flex
   flex-grow: 1
   font-size: 24px
@@ -68,7 +69,7 @@
 .description-input > textarea
   background: transparent
   border: none
-  color: $secondary-color
+  color: var(--color-secondary)
   font-family: inherit
   font-size: 24px
   height: 100%

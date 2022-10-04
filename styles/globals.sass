@@ -8,6 +8,17 @@ body
   font-weight: 400
   font-style: normal
 
+body
+  --background: url('/background-01.jpeg')
+  --color-primary: #9A98B5
+  --color-secondary: #A0335F
+  --color-tertiary: #521945
+
+body.narrativas-visuales
+  --background: url('/background-narrativas.jpeg')
+  --color-tertiary: #007089
+  --color-secondary: #023b47
+
 a
   color: inherit
   text-decoration: none
@@ -17,7 +28,7 @@ a
   -webkit-tap-highlight-color: transparent
 
 h1
-  color: $tertiary-color
+  color: var(--color-tertiary)
   font-size: 40px
   line-height: 1
   margin: 0
@@ -61,40 +72,42 @@ h1
     z-index: 1
 
 .button-primary
-  background-color: $secondary-color
-  border-color: $secondary-color
+  background-color: var(--color-secondary)
+  border-color: var(--color-secondary)
   color: $white
   &::before
-    border-color: $tertiary-color
+    border-color: var(--color-tertiary)
   &:not(.button-disabled):hover::before
     width: 100%
-    background-color: $tertiary-color
+    background-color: var(--color-tertiary)
     border-width: 0.02rem
     transition: width 0.3s ease-in-out
 
 .button-secondary
-  background-color: rgba(255,255,255, 0.1)
-  border-color: $secondary-color
-  color: $secondary-color
+  background-color: rgba(255,255,255, 0.2)
+  border-color: var(--color-secondary)
+  color: var(--color-secondary)
   &:not(.button-disabled)::before
-    border-color: $secondary-color
-  &:not(.button-disabled):hover::before
-    width: 100%
-    background-color: $secondary-color
-    opacity: 0.1
-    border-width: 0.02rem
-    transition: width 0.3s ease-in-out
+    border-color: var(--color-secondary)
+  &:not(.button-disabled):hover
+    color: $white
+    &::before
+      width: 100%
+      background-color: var(--color-secondary)
+      opacity: 0.2
+      border-width: 0.02rem
+      transition: width 0.3s ease-in-out
 
 .button-tertiary
   background-color: transparent
   border-color: transparent
-  color: $secondary-color
+  color: var(--color-secondary)
   transition: color 0.3s ease-in-out
   padding-left: 0
   padding-right: 0
 
   &:not(.button-disabled):hover
-    color: $tertiary-color
+    color: var(--color-tertiary)
 
 .button.button-disabled
   cursor: auto
