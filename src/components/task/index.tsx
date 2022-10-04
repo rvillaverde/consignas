@@ -3,11 +3,13 @@ import moment from 'moment';
 import React, { ChangeEvent, useRef, useState } from 'react';
 import { Task } from '../../services/task';
 import Button from '../button';
+import { ActionType } from '../random-task';
 import DescriptionInput from './description-input';
 
 import styles from './task.module.sass';
 
 interface PropTypes {
+  actions: ActionType[];
   loading: boolean;
   onLike?: () => Promise<void>;
   onReport?: () => Promise<void>;
@@ -16,6 +18,7 @@ interface PropTypes {
 }
 
 const Task: React.FunctionComponent<PropTypes> = ({
+  actions,
   loading,
   onLike,
   onReport,
@@ -69,6 +72,9 @@ const Task: React.FunctionComponent<PropTypes> = ({
     setDisableReport(true);
   };
 
+  const hasAction = (action: ActionType): boolean =>
+    actions.indexOf(action) > -1;
+
   return (
     <div className={styles.task}>
       {task && (
@@ -95,23 +101,33 @@ const Task: React.FunctionComponent<PropTypes> = ({
       <div className="actions">
         {task ? (
           <>
-            <Button disabled={loading} onClick={handleDownload} type="primary">
-              Descargar
-            </Button>
-            <Button
-              disabled={loading || !!disableLike}
-              onClick={handleLike}
-              type="secondary"
-            >
-              {`Me gusta (${task.likes})`}
-            </Button>
-            <Button
-              disabled={loading || !!disableReport}
-              onClick={handleReport}
-              type="tertiary"
-            >
-              Reportar
-            </Button>
+            {hasAction('download') && (
+              <Button
+                disabled={loading}
+                onClick={handleDownload}
+                type="primary"
+              >
+                Descargar
+              </Button>
+            )}
+            {hasAction('like') && (
+              <Button
+                disabled={loading || !!disableLike}
+                onClick={handleLike}
+                type="secondary"
+              >
+                {`Me gusta (${task.likes})`}
+              </Button>
+            )}
+            {hasAction('report') && (
+              <Button
+                disabled={loading || !!disableReport}
+                onClick={handleReport}
+                type="tertiary"
+              >
+                Reportar
+              </Button>
+            )}
           </>
         ) : (
           <>

@@ -3,13 +3,15 @@ import type { NextPage } from 'next';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import Head from '../components/head';
-import RandomTask from '../components/random-task';
+import RandomTask, { ActionType } from '../components/random-task';
 import { Task } from '../services/task';
 import taskApi from '../api/task';
 import Loading from '../components/loading';
 import Error from '../components/random-task/error';
 
 import styles from '../../styles/Home.module.sass';
+
+const ACTIONS: ActionType[] = ['create', 'download', 'like', 'next', 'report'];
 
 const Random: NextPage = () => {
   const [tasks, setTasks] = useState<Task[]>();
@@ -50,7 +52,7 @@ const Random: NextPage = () => {
         ) : error ? (
           <Error />
         ) : tasks ? (
-          <RandomTask tasks={tasks} />
+          <RandomTask actions={ACTIONS} tasks={tasks} />
         ) : null}
       </main>
     </div>

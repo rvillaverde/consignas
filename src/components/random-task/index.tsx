@@ -8,10 +8,14 @@ import TaskComponent from '../task';
 import styles from './random-task.module.sass';
 
 interface PropTypes {
+  actions: ActionType[];
   tasks: Task[];
 }
 
+export type ActionType = 'create' | 'download' | 'like' | 'next' | 'report';
+
 const RandomTask: React.FunctionComponent<PropTypes> = ({
+  actions,
   tasks,
 }: PropTypes) => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -58,6 +62,9 @@ const RandomTask: React.FunctionComponent<PropTypes> = ({
     }
   };
 
+  const hasAction = (action: ActionType): boolean =>
+    actions.indexOf(action) > -1;
+
   if (loading) {
     return <Loading />;
   }
@@ -66,6 +73,7 @@ const RandomTask: React.FunctionComponent<PropTypes> = ({
     <div className={styles['random-task']}>
       {task && (
         <TaskComponent
+          actions={actions}
           loading={saving}
           onLike={handleLike}
           onReport={handleReport}
@@ -81,10 +89,12 @@ const RandomTask: React.FunctionComponent<PropTypes> = ({
         </div>
       )}
       <div className="actions">
-        <Button href="/new" type="primary">
-          Crear consigna
-        </Button>
-        {!emptyStack && (
+        {hasAction('create') && (
+          <Button href="/new" type="primary">
+            Crear consigna
+          </Button>
+        )}
+        {!emptyStack && hasAction('next') && (
           <Button onClick={refreshTask} type="secondary">
             Nueva consigna
           </Button>

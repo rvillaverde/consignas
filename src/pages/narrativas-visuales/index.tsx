@@ -3,13 +3,16 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { shuffle } from 'lodash';
 import { Task } from '../../services/task';
-import taskApi from '../../api/task';
+import taskApi, { TagType } from '../../api/task';
 import Head from '../../components/head';
 import Loading from '../../components/loading';
 import Error from '../../components/random-task/error';
-import RandomTask from '../../components/random-task';
+import RandomTask, { ActionType } from '../../components/random-task';
 
 import styles from '../../../styles/Home.module.sass';
+
+const ACTIONS: ActionType[] = ['download', 'like', 'next'];
+const TAG: TagType = 'narrativas-visuales';
 
 const Random: NextPage = () => {
   const [tasks, setTasks] = useState<Task[]>();
@@ -17,6 +20,8 @@ const Random: NextPage = () => {
   const [error, setError] = useState<boolean>(false);
 
   useEffect(() => {
+    document.querySelector('body')?.classList.add(TAG);
+
     if (!tasks) {
       fetchTasks();
     }
@@ -25,7 +30,7 @@ const Random: NextPage = () => {
   const fetchTasks = async () => {
     setLoading(true);
     try {
-      const tasks = await taskApi.list('narrativas-visuales');
+      const tasks = await taskApi.list(TAG);
       setTasks(shuffle(tasks));
     } catch {
       setError(true);
@@ -41,7 +46,9 @@ const Random: NextPage = () => {
       <main className={styles.main}>
         <Link href="/">
           <a>
-            <h1 className={styles.title}>Consignas fotográficas!</h1>
+            <h1 className={styles.title}>
+              Consignas fotográficas - Narrativas visuales
+            </h1>
           </a>
         </Link>
 
@@ -50,7 +57,7 @@ const Random: NextPage = () => {
         ) : error ? (
           <Error />
         ) : tasks ? (
-          <RandomTask tasks={tasks} />
+          <RandomTask actions={ACTIONS} tasks={tasks} />
         ) : null}
       </main>
     </div>

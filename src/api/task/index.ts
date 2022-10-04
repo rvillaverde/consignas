@@ -1,6 +1,6 @@
 import { Task } from '../../services/task';
 
-type TagType = 'narrativas-visuales';
+export type TagType = 'narrativas-visuales';
 
 const taskApi = {
   create: async (description: Task['description']): Promise<Task> => {
