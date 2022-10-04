@@ -32,6 +32,11 @@ export enum ERRORS {
   NOT_FOUND = 'NOT_FOUND',
 }
 
+const filterByFormula = (query: { [key: string]: string }): string =>
+  `AND(1, ${Object.keys(query)
+    .map(key => `${key}='${query[key]}'`)
+    .join(',')})`;
+
 class Airtable<T extends BaseRecord> {
   private base: Table<FieldSet>;
   private map: Map<T>;
@@ -88,7 +93,7 @@ class Airtable<T extends BaseRecord> {
 
   find = async (id: string | number): Promise<T> => {
     const params: QueryParams<FieldSet> = {
-      filterByFormula: `id = '${id}'`,
+      filterByFormula: `id='${id}'`,
       view,
     };
 
@@ -108,9 +113,9 @@ class Airtable<T extends BaseRecord> {
     });
   };
 
-  findByField = async (field?: string, value?: string): Promise<T[]> => {
+  findByField = async (query?: { [key: string]: string }): Promise<T[]> => {
     const params: QueryParams<FieldSet> = {
-      ...(field && value && { filterByFormula: `${field} = '${value}'` }),
+      ...(query ? { filterByFormula: filterByFormula(query) } : {}),
       view,
     };
 

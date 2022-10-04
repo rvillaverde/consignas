@@ -4,6 +4,10 @@ import Airtable, { AirtableRecord } from '../../lib/airtable';
 
 const TABLE = 'task';
 
+interface TaskQueryParams {
+  tags?: 'narrativas-visuales';
+}
+
 export interface Task {
   description: string;
   id: string;
@@ -34,7 +38,11 @@ const api: API<Task> = {
   create: async (task: Pick<Partial<Task>, 'description'>) =>
     airtable.create(task),
   find: async (id: string): Promise<Task> => airtable.find(id),
-  list: async (): Promise<Task[]> => airtable.selectAll(),
+  list: async (query: TaskQueryParams = {}): Promise<Task[]> =>
+    airtable.findByField({
+      ...query,
+      show: '1',
+    }),
   update: async (id: Task['internalId'], task: Partial<Task>): Promise<void> =>
     airtable.update(id, task),
 };

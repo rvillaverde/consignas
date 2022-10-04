@@ -3,7 +3,11 @@ import taskApi from '../../../services/task';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'GET') {
-    const tasks = await taskApi.list();
+    const { query } = req;
+
+    const params = query.tags ? { tags: query.tags as string } : undefined;
+
+    const tasks = await taskApi.list(params);
     res.status(200).json(tasks);
   }
   if (req.method === 'POST') {

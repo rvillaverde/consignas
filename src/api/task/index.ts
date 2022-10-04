@@ -1,5 +1,7 @@
 import { Task } from '../../services/task';
 
+type TagType = 'narrativas-visuales';
+
 const taskApi = {
   create: async (description: Task['description']): Promise<Task> => {
     const res = await fetch('/api/tasks', {
@@ -23,8 +25,8 @@ const taskApi = {
 
     return res.json();
   },
-  list: async (): Promise<Task[]> => {
-    const res = await fetch('/api/tasks/');
+  list: async (tags?: TagType): Promise<Task[]> => {
+    const res = await fetch(`/api/tasks${tags ? '?tags=' + tags : '/'}`);
     return await res.json();
   },
   random: async (): Promise<Task> => {

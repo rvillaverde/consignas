@@ -1,15 +1,15 @@
-import { shuffle } from 'lodash';
 import type { NextPage } from 'next';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import Head from '../components/head';
-import RandomTask from '../components/random-task';
-import { Task } from '../services/task';
-import taskApi from '../api/task';
-import Loading from '../components/loading';
-import Error from '../components/random-task/error';
+import { shuffle } from 'lodash';
+import { Task } from '../../services/task';
+import taskApi from '../../api/task';
+import Head from '../../components/head';
+import Loading from '../../components/loading';
+import Error from '../../components/random-task/error';
+import RandomTask from '../../components/random-task';
 
-import styles from '../../styles/Home.module.sass';
+import styles from '../../../styles/Home.module.sass';
 
 const Random: NextPage = () => {
   const [tasks, setTasks] = useState<Task[]>();
@@ -25,7 +25,7 @@ const Random: NextPage = () => {
   const fetchTasks = async () => {
     setLoading(true);
     try {
-      const tasks = await taskApi.list();
+      const tasks = await taskApi.list('narrativas-visuales');
       setTasks(shuffle(tasks));
     } catch {
       setError(true);
