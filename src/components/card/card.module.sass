@@ -1,0 +1,30 @@
+@import "../../../styles/partials/_variables"
+
+.card
+  @extend .card
+  overflow: hidden
+
+  &.large
+    max-width: 70rem
+    width: 100%
+
+    .content
+      padding: 3rem
+
+    .actions
+      padding: 3rem
+      padding-top: 0
+
+  .top-image
+    background-size: cover
+    background-position: center
+    width: 100%
+    height: 15rem
+
+  .content
+    color: $darker-gray
+    font-size: 1rem
+
+  .actions
+    display: flex
+    justify-content: center

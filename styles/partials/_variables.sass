@@ -2,8 +2,15 @@ $primary-color: #9A98B5
 $secondary-color: #A0335F
 $tertiary-color: #521945
 
-$dark-gray: #3D272F
+// $dark-gray: #3D272F
 
+$darker-gray: #353D46
+$dark-gray: #4f5b66
+$mid-gray: #66737e
+$light-gray: #a7adba
+$lighter-gray: #c0c5ce
+
+$black: #141516
 $white: white
 
 $breakpoints: ("small": 640px, "medium": 992px,"large": 1200px)
@@ -27,12 +34,20 @@ $breakpoints: ("small": 640px, "medium": 992px,"large": 1200px)
 .card
   align-items: center
   background-color: rgba(255,255,255,0.6)
-  border-radius: 1.5rem
+  border-radius: 1rem
   display: flex
   flex-direction: column
   justify-content: center
   min-height: 20rem
   width: 40rem
+
+  p
+    color: $darker-gray
+    line-height: 1.5rem
+    &:first-child
+      margin-top: 0
+    &:last-child
+      margin-bottom: 0
 
   @include media-query(0, small)
     flex-grow: 1

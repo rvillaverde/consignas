@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import Link from 'next/link';
 import React from 'react';
 
-interface PropTypes {
+export interface PropTypes {
   children: JSX.Element | string;
   disabled?: boolean;
   onClick?: () => Promise<void> | void;
