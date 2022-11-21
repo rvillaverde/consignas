@@ -35,7 +35,7 @@ const Card: React.FunctionComponent<PropTypes> = ({
       {actions && actions.length ? (
         <div className={styles.actions}>
           {actions.map(action => (
-            <Button href={action.href} type={action.type}>
+            <Button href={action.href} key={action.href} type={action.type}>
               {action.label}
             </Button>
           ))}

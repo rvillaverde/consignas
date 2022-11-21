@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import taskApi from '../../api/task';
 import { Task } from '../../services/task';
 import Button from '../button';
+import useRandomTask from '../hooks/useRandomTask';
 import Loading from '../loading';
 import TaskComponent from '../task';
 
@@ -18,37 +19,15 @@ const RandomTask: React.FunctionComponent<PropTypes> = ({
   actions,
   tasks,
 }: PropTypes) => {
-  const [loading, setLoading] = useState<boolean>(false);
+  const { emptyStack, loading, refresh, task } = useRandomTask(tasks);
   const [saving, setSaving] = useState<boolean>(false);
-  const [emptyStack, setEmptyStack] = useState<boolean>(false);
-  const [task, setTask] = useState<Task | undefined>();
-
-  useEffect(() => {
-    if (!task && !loading) {
-      refreshTask();
-    }
-  }, []);
-
-  const refreshTask = async () => {
-    setLoading(true);
-
-    setTimeout(() => {
-      const task = tasks.shift();
-      if (task) {
-        setTask(task);
-      } else {
-        setTask(undefined);
-        setEmptyStack(true);
-      }
-      setLoading(false);
-    }, 3000);
-  };
 
   const handleLike = async () => {
     if (task) {
       setSaving(true);
-      const res = await taskApi.like(task.id);
-      setTask(res);
+      await taskApi.like(task.id);
+      // TECHDEBT
+      task.likes++;
       setSaving(false);
     }
   };
@@ -56,8 +35,9 @@ const RandomTask: React.FunctionComponent<PropTypes> = ({
   const handleReport = async () => {
     if (task) {
       setSaving(true);
-      const res = await taskApi.report(task.id);
-      setTask(res);
+      await taskApi.report(task.id);
+      // TECHDEBT
+      task.reports++;
       setSaving(false);
     }
   };
@@ -95,7 +75,7 @@ const RandomTask: React.FunctionComponent<PropTypes> = ({
           </Button>
         )}
         {!emptyStack && hasAction('next') && (
-          <Button onClick={refreshTask} type="secondary">
+          <Button onClick={refresh} type="secondary">
             Nueva consigna
           </Button>
         )}

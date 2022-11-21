@@ -1,15 +1,14 @@
-import { shuffle } from 'lodash';
 import type { NextPage } from 'next';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
-import taskApi, { TagType } from '../../../api/task';
+import { useEffect } from 'react';
+import { TagType } from '../../../api/task';
 import Footer from '../../../components/footer';
 import Head from '../../../components/head';
 import Header, { Menu } from '../../../components/header';
 import Loading from '../../../components/loading';
 import Error from '../../../components/random-task/error';
 import RandomTask, { ActionType } from '../../../components/random-task';
-import { Task } from '../../../services/task';
+import useTasks from '../../../components/hooks/useTasks';
 
 import styles from '../../../../styles/Home.module.sass';
 
@@ -28,29 +27,11 @@ const MENU: Menu = {
 };
 
 const Random: NextPage = () => {
-  const [tasks, setTasks] = useState<Task[]>();
-  const [loading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<boolean>(false);
+  const { error, loading, tasks } = useTasks(TAG);
 
   useEffect(() => {
     document.querySelector('body')?.classList.add(TAG);
-
-    if (!tasks) {
-      fetchTasks();
-    }
   }, []);
-
-  const fetchTasks = async () => {
-    setLoading(true);
-    try {
-      const tasks = await taskApi.list(TAG);
-      setTasks(shuffle(tasks));
-    } catch {
-      setError(true);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   return (
     <div className={styles.container}>
