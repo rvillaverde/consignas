@@ -1,13 +1,12 @@
 import type { NextPage } from 'next';
-import Link from 'next/link';
 import { useEffect } from 'react';
 import { TagType } from '../../api/task';
-import Footer from '../../components/footer';
+import Card from '../../components/card';
+import FooterNarrativasVisuales from '../../components/footer/narrativas-visuales';
 import Head from '../../components/head';
 import Header, { Menu } from '../../components/header';
 
 import styles from '../../../styles/Home.module.sass';
-import Card from '../../components/card';
 
 const TAG: TagType = 'narrativas-visuales';
 
@@ -78,19 +77,7 @@ const Random: NextPage = () => {
         </Card>
       </main>
 
-      <Footer>
-        <span>
-          Oráculo de consignas desarrollado colaborativamente por{' '}
-          <Link href="https://www.instagram.com/ruminga/">
-            <a target="_blank">ruminga</a>
-          </Link>{' '}
-          y{' '}
-          <Link href="https://www.santa-talleres.com/" target="_blank">
-            <a target="_blank">Santa Talleres</a>
-          </Link>
-          .
-        </span>
-      </Footer>
+      <FooterNarrativasVisuales />
     </div>
   );
 };

@@ -1,14 +1,13 @@
 import type { NextPage } from 'next';
-import Link from 'next/link';
 import { useEffect } from 'react';
 import { TagType } from '../../../api/task';
-import Footer from '../../../components/footer';
+import FooterNarrativasVisuales from '../../../components/footer/narrativas-visuales';
 import Head from '../../../components/head';
 import Header, { Menu } from '../../../components/header';
+import useTasks from '../../../components/hooks/useTasks';
 import Loading from '../../../components/loading';
 import Error from '../../../components/random-task/error';
 import RandomTask, { ActionType } from '../../../components/random-task';
-import useTasks from '../../../components/hooks/useTasks';
 
 import styles from '../../../../styles/Home.module.sass';
 
@@ -52,19 +51,7 @@ const Random: NextPage = () => {
         ) : null}
       </main>
 
-      <Footer>
-        <span>
-          Oráculo de consignas desarrollado colaborativamente por{' '}
-          <Link href="https://www.instagram.com/ruminga/">
-            <a target="_blank">ruminga</a>
-          </Link>{' '}
-          y{' '}
-          <Link href="https://www.santa-talleres.com/" target="_blank">
-            <a target="_blank">Santa Talleres</a>
-          </Link>
-          .
-        </span>
-      </Footer>
+      <FooterNarrativasVisuales />
     </div>
   );
 };
