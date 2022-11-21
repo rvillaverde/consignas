@@ -13,7 +13,7 @@ export interface Menu {
   items: MenuItem[];
 }
 
-interface MenuItem {
+export interface MenuItem {
   external?: boolean;
   href: string;
   id: string;

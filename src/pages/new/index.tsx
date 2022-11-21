@@ -1,11 +1,11 @@
 import type { NextPage } from 'next';
 import { useState } from 'react';
 import taskApi from '../../api/task';
-import Head from '../../components/head';
+import { Layout } from '../../components/layout';
+import Error from '../../components/new-task/error';
+import Success from '../../components/new-task/success';
 import TaskComponent from '../../components/task';
 import { Task } from '../../services/task';
-import Success from '../../components/new-task/success';
-import Error from '../../components/new-task/error';
 
 import styles from '../../../styles/Home.module.sass';
 
@@ -32,23 +32,17 @@ const Home: NextPage = () => {
   };
 
   return (
-    <div className={styles.container}>
-      <Head />
+    <Layout>
+      {!created && <h1 className={styles.title}>Nueva consigna:</h1>}
 
-      <main className={styles.main}>
-        {!created && <h1 className={styles.title}>Nueva consigna:</h1>}
-
-        {created ? (
-          <Success onNewTask={handleNewTask} />
-        ) : error ? (
-          <Error onNewTask={handleNewTask} />
-        ) : (
-          <TaskComponent actions={[]} loading={saving} onSave={handleSave} />
-        )}
-      </main>
-
-      <footer className={styles.footer}></footer>
-    </div>
+      {created ? (
+        <Success onNewTask={handleNewTask} />
+      ) : error ? (
+        <Error onNewTask={handleNewTask} />
+      ) : (
+        <TaskComponent actions={[]} loading={saving} onSave={handleSave} />
+      )}
+    </Layout>
   );
 };
 
