@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import taskApi from '../../api/task';
-import { Task } from '../../services/task';
 import Button from '../button';
 import useRandomTask from '../hooks/useRandomTask';
 import Loading from '../loading';
@@ -10,16 +9,14 @@ import styles from './random-task.module.sass';
 
 interface PropTypes {
   actions: ActionType[];
-  tasks: Task[];
 }
 
 export type ActionType = 'create' | 'download' | 'like' | 'next' | 'report';
 
 const RandomTask: React.FunctionComponent<PropTypes> = ({
   actions,
-  tasks,
 }: PropTypes) => {
-  const { emptyStack, loading, refresh, task } = useRandomTask(tasks);
+  const { emptyStack, loading, refresh, task } = useRandomTask();
   const [saving, setSaving] = useState<boolean>(false);
 
   const handleLike = async () => {

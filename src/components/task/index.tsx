@@ -1,8 +1,9 @@
 import html2canvas from 'html2canvas';
 import moment from 'moment';
-import React, { ChangeEvent, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Task } from '../../services/task';
 import Button from '../button';
+import TaskContext from '../context/task';
 import { ActionType } from '../random-task';
 import DescriptionInput from './description-input';
 
@@ -25,9 +26,12 @@ const Task: React.FunctionComponent<PropTypes> = ({
   onSave,
   task,
 }: PropTypes) => {
+  const { tag } = React.useContext(TaskContext);
   const [description, setDescription] = useState<string>('');
   const [disableLike, setDisableLike] = useState<boolean>(false);
   const [disableReport, setDisableReport] = useState<boolean>(false);
+
+  const url = `consignasfotograficas.com${tag ? `/${tag}` : ''}`;
 
   const ref = useRef<HTMLHeadingElement>(null);
 
@@ -82,9 +86,7 @@ const Task: React.FunctionComponent<PropTypes> = ({
           <span className={styles['task-image-description']}>
             {task.description}
           </span>
-          <span className={styles['task-image-watermark']}>
-            consignasfotograficas.com
-          </span>
+          <span className={styles['task-image-watermark']}>{url}</span>
         </div>
       )}
       <div className={styles.description}>

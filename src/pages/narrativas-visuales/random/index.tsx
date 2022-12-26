@@ -1,6 +1,7 @@
 import type { NextPage } from 'next';
 import { useEffect } from 'react';
 import { TagType } from '../../../api/task';
+import TaskContext from '../../../components/context/task';
 import FooterNarrativasVisuales from '../../../components/footer/narrativas-visuales';
 import Head from '../../../components/head';
 import Header, { Menu } from '../../../components/header';
@@ -33,26 +34,28 @@ const Random: NextPage = () => {
   }, []);
 
   return (
-    <div className={styles.container}>
-      <Head />
-      <Header
-        href={`/${TAG}`}
-        menu={MENU}
-        title="Consignas fotográficas - Narrativas visuales"
-      />
+    <TaskContext.Provider value={{ tag: TAG, tasks: tasks || [] }}>
+      <div className={styles.container}>
+        <Head />
+        <Header
+          href={`/${TAG}`}
+          menu={MENU}
+          title="Consignas fotográficas - Narrativas visuales"
+        />
 
-      <main className={styles.main}>
-        {loading ? (
-          <Loading />
-        ) : error ? (
-          <Error />
-        ) : tasks ? (
-          <RandomTask actions={ACTIONS} tasks={tasks} />
-        ) : null}
-      </main>
+        <main className={styles.main}>
+          {loading ? (
+            <Loading />
+          ) : error ? (
+            <Error />
+          ) : tasks ? (
+            <RandomTask actions={ACTIONS} />
+          ) : null}
+        </main>
 
-      <FooterNarrativasVisuales />
-    </div>
+        <FooterNarrativasVisuales />
+      </div>
+    </TaskContext.Provider>
   );
 };
 

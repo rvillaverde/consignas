@@ -1,9 +1,12 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Task } from '../../services/task';
+import TaskContext from '../context/task';
 
 const TIMEOUT = 3000;
 
-const useRandomTask = (tasks: Task[]) => {
+const useRandomTask = () => {
+  const { tasks } = React.useContext(TaskContext);
+
   const [emptyStack, setEmptyStack] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
   const [task, setTask] = useState<Task | undefined>();

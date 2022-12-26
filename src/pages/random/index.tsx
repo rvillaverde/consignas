@@ -1,4 +1,6 @@
 import type { NextPage } from 'next';
+import React from 'react';
+import TaskContext from '../../components/context/task';
 import { CREATE_TASK } from '../../components/header/menu-items';
 import useTasks from '../../components/hooks/useTasks';
 import { Layout } from '../../components/layout';
@@ -12,15 +14,17 @@ const Random: NextPage = () => {
   const { error, loading, tasks } = useTasks();
 
   return (
-    <Layout menu={{ items: [CREATE_TASK] }}>
-      {loading ? (
-        <Loading />
-      ) : error ? (
-        <Error />
-      ) : tasks ? (
-        <RandomTask actions={ACTIONS} tasks={tasks} />
-      ) : null}
-    </Layout>
+    <TaskContext.Provider value={{ tasks: tasks || [] }}>
+      <Layout menu={{ items: [CREATE_TASK] }}>
+        {loading ? (
+          <Loading />
+        ) : error ? (
+          <Error />
+        ) : tasks ? (
+          <RandomTask actions={ACTIONS} />
+        ) : null}
+      </Layout>
+    </TaskContext.Provider>
   );
 };
 

@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import taskApi, { TagType } from '../../api/task';
 import { Task } from '../../services/task';
 
+// @TODO: use local storage to filter tasks that user already got
 const useTasks = (tag?: TagType) => {
   const [error, setError] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
