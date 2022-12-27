@@ -11,7 +11,7 @@ import styles from './task.module.sass';
 
 interface PropTypes {
   actions: ActionType[];
-  loading: boolean;
+  loading?: boolean;
   onLike?: () => Promise<void>;
   onReport?: () => Promise<void>;
   onSave?: (description: Task['description']) => Promise<void>;
@@ -100,48 +100,50 @@ const Task: React.FunctionComponent<PropTypes> = ({
           />
         )}
       </div>
-      <div className="actions">
-        {task ? (
-          <>
-            {hasAction('download') && (
-              <Button
-                disabled={loading}
-                onClick={handleDownload}
-                type="primary"
-              >
-                Descargar
+      {actions.length ? (
+        <div className="actions">
+          {task ? (
+            <>
+              {hasAction('download') && (
+                <Button
+                  disabled={loading}
+                  onClick={handleDownload}
+                  type="primary"
+                >
+                  Descargar
+                </Button>
+              )}
+              {hasAction('like') && (
+                <Button
+                  disabled={loading || !!disableLike}
+                  onClick={handleLike}
+                  type="secondary"
+                >
+                  {`Me gusta (${task.likes})`}
+                </Button>
+              )}
+              {hasAction('report') && (
+                <Button
+                  disabled={loading || !!disableReport}
+                  onClick={handleReport}
+                  type="tertiary"
+                >
+                  Reportar
+                </Button>
+              )}
+            </>
+          ) : (
+            <>
+              <Button disabled={loading} onClick={handleSave} type="primary">
+                Guardar
               </Button>
-            )}
-            {hasAction('like') && (
-              <Button
-                disabled={loading || !!disableLike}
-                onClick={handleLike}
-                type="secondary"
-              >
-                {`Me gusta (${task.likes})`}
+              <Button href="/" type="tertiary">
+                Cancelar
               </Button>
-            )}
-            {hasAction('report') && (
-              <Button
-                disabled={loading || !!disableReport}
-                onClick={handleReport}
-                type="tertiary"
-              >
-                Reportar
-              </Button>
-            )}
-          </>
-        ) : (
-          <>
-            <Button disabled={loading} onClick={handleSave} type="primary">
-              Guardar
-            </Button>
-            <Button href="/" type="tertiary">
-              Cancelar
-            </Button>
-          </>
-        )}
-      </div>
+            </>
+          )}
+        </div>
+      ) : null}
     </div>
   );
 };

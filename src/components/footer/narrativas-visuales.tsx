@@ -4,7 +4,8 @@ import Footer from '.';
 const FooterNarrativasVisuales = () => (
   <Footer>
     <span>
-      Oráculo de consignas desarrollado colaborativamente por{' '}
+      Oráculo virtual de consignas fotográficas desarrollado colaborativamente
+      por{' '}
       <Link href="https://www.instagram.com/ruminga/">
         <a target="_blank">Ruminga</a>
       </Link>{' '}
