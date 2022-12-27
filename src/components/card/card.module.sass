@@ -5,7 +5,7 @@
   overflow: hidden
 
   &.large
-    max-width: 70rem
+    max-width: 56rem
     width: 100%
 
     .content
@@ -14,6 +14,10 @@
     .actions
       padding: 3rem
       padding-top: 0
+
+      @include media-query(0, small)
+        flex-direction: column
+        width: 100%
 
   .top-image
     background-size: cover

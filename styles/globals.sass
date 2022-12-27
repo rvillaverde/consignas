@@ -1,23 +1,58 @@
 @import "./partials/_variables"
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700;1,800&display=swap')
+
+@font-face
+  font-family: NeueMachina
+  font-weight: 300
+  src: url("/fonts/neue-machina/NeueMachina-Light.otf") format("opentype")
+
+@font-face
+  font-family: NeueMachina
+  font-weight: 400
+  src: url("/fonts/neue-machina/NeueMachina-Regular.otf") format("opentype")
+
+html
+  font-size: 16px
 
 html,
 body
   padding: 0
   margin: 0
-  font-family: futura-pt, sans-serif
+  font-family: var(--font-primary)
   font-weight: 400
   font-style: normal
 
 body
-  --background: url('/background-01.jpeg')
+  --background-color: var(--color-tertiary)
+  --background-image: url('/background-01.jpeg')
+
   --color-primary: #9A98B5
   --color-secondary: #A0335F
   --color-tertiary: #521945
 
+  --font-primary: futura-pt, sans-serif
+  --font-secondary: futura-pt, sans-serif
+
+  --header-background: rgba(255,255,255,0.6)
+  --loading-color: var(--color-tertiary)
+  --task-description-color: var(--color-secondary)
+  --card-transparency: 0.6
+
 body.narrativas-visuales
-  --background: url('/narrativas-visuales/06.jpg')
-  --color-tertiary: #181C03
-  --color-secondary: #690F06
+  --background-color: var(--color-primary)
+  --background-image: none
+
+  --font-primary: 'Playfair Display', serif
+  --font-secondary: NeueMachina, sans-serif
+
+  --color-primary: #deb1d2
+  --color-secondary: #521945
+  --color-tertiary: #141516
+
+  --header-background: transparent
+  --loading-color: var(--color-secondary)
+  --task-description-color: var(--color-tertiary)
+  --card-transparency: 0.8
 
 a
   color: inherit
@@ -29,6 +64,7 @@ a
 
 h1
   color: var(--color-tertiary)
+  font-family: var(--font-secondary)
   font-size: 40px
   line-height: 1
   margin: 0
@@ -41,7 +77,7 @@ h1
   border-width: 0.02rem
   cursor: pointer
   display: flex
-  font-family: inherit
+  font-family: var(--font-secondary)
   font-size: 1rem
   justify-content: center
   line-height: 1

@@ -2,29 +2,14 @@ import type { NextPage } from 'next';
 import { useEffect } from 'react';
 import { TagType } from '../../../api/task';
 import TaskContext from '../../../components/context/task';
-import FooterNarrativasVisuales from '../../../components/footer/narrativas-visuales';
-import Head from '../../../components/head';
-import Header, { Menu } from '../../../components/header';
 import useTasks from '../../../components/hooks/useTasks';
+import { Layout } from '../../../components/layout/narrativas-visuales';
 import Loading from '../../../components/loading';
 import Error from '../../../components/random-task/error';
 import RandomTask, { ActionType } from '../../../components/random-task';
 
-import styles from '../../../../styles/Home.module.sass';
-
 const ACTIONS: ActionType[] = ['download', 'like', 'next'];
 const TAG: TagType = 'narrativas-visuales';
-
-const MENU: Menu = {
-  items: [
-    {
-      external: true,
-      href: 'https://www.santa-talleres.com/narrativas-visuales',
-      id: 'sobre-el-taller',
-      label: 'Sobre el Taller',
-    },
-  ],
-};
 
 const Random: NextPage = () => {
   const { error, loading, tasks } = useTasks(TAG);
@@ -35,26 +20,15 @@ const Random: NextPage = () => {
 
   return (
     <TaskContext.Provider value={{ tag: TAG, tasks: tasks || [] }}>
-      <div className={styles.container}>
-        <Head />
-        <Header
-          href={`/${TAG}`}
-          menu={MENU}
-          title="Consignas fotográficas - Narrativas visuales"
-        />
-
-        <main className={styles.main}>
-          {loading ? (
-            <Loading />
-          ) : error ? (
-            <Error />
-          ) : tasks ? (
-            <RandomTask actions={ACTIONS} />
-          ) : null}
-        </main>
-
-        <FooterNarrativasVisuales />
-      </div>
+      <Layout>
+        {loading ? (
+          <Loading />
+        ) : error ? (
+          <Error />
+        ) : tasks ? (
+          <RandomTask actions={ACTIONS} />
+        ) : null}
+      </Layout>
     </TaskContext.Provider>
   );
 };

@@ -33,8 +33,9 @@ $breakpoints: ("small": 640px, "medium": 992px,"large": 1200px)
 
 .card
   align-items: center
-  background-color: rgba(255,255,255,0.6)
+  background-color: rgba(255,255,255,var(--card-transparency))
   border-radius: 1rem
+  box-shadow: 2px 2px 12px -8px $darker-gray
   display: flex
   flex-direction: column
   justify-content: center

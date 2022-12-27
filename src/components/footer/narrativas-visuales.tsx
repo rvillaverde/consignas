@@ -6,7 +6,7 @@ const FooterNarrativasVisuales = () => (
     <span>
       Oráculo de consignas desarrollado colaborativamente por{' '}
       <Link href="https://www.instagram.com/ruminga/">
-        <a target="_blank">ruminga</a>
+        <a target="_blank">Ruminga</a>
       </Link>{' '}
       y{' '}
       <Link href="https://www.santa-talleres.com/" target="_blank">
