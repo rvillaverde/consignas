@@ -40,7 +40,7 @@ const Home: NextPage = () => {
       ) : error ? (
         <Error onNewTask={handleNewTask} />
       ) : (
-        <TaskComponent actions={[]} loading={saving} onSave={handleSave} />
+        <TaskComponent loading={saving} onSave={handleSave} />
       )}
     </Layout>
   );

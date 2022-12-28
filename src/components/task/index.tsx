@@ -10,7 +10,7 @@ import DescriptionInput from './description-input';
 import styles from './task.module.sass';
 
 interface PropTypes {
-  actions: ActionType[];
+  actions?: ActionType[];
   loading?: boolean;
   onLike?: () => Promise<void>;
   onReport?: () => Promise<void>;
@@ -34,6 +34,8 @@ const Task: React.FunctionComponent<PropTypes> = ({
   const url = `consignasfotograficas.com${tag ? `/${tag}` : ''}`;
 
   const ref = useRef<HTMLHeadingElement>(null);
+
+  const showActions = (): boolean => !task || (!!actions && actions.length > 0);
 
   const handleChange = (input: string) => {
     setDescription(input);
@@ -77,7 +79,7 @@ const Task: React.FunctionComponent<PropTypes> = ({
   };
 
   const hasAction = (action: ActionType): boolean =>
-    actions.indexOf(action) > -1;
+    !!actions && actions.indexOf(action) > -1;
 
   return (
     <div className={styles.task}>
@@ -100,7 +102,7 @@ const Task: React.FunctionComponent<PropTypes> = ({
           />
         )}
       </div>
-      {actions.length ? (
+      {showActions() ? (
         <div className="actions">
           {task ? (
             <>

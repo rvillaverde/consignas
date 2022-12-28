@@ -24,7 +24,6 @@ body
 
 body
   --background-color: var(--color-tertiary)
-  --background-image: url('/background-01.jpeg')
 
   --color-primary: #9A98B5
   --color-secondary: #A0335F
@@ -37,6 +36,9 @@ body
   --loading-color: var(--color-tertiary)
   --task-description-color: var(--color-secondary)
   --card-transparency: 0.6
+
+body:not(.narrativas-visuales)
+  --background-image: url('/background-01.jpeg')
 
 body.narrativas-visuales
   --background-color: var(--color-primary)
