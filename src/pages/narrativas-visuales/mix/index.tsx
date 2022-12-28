@@ -9,19 +9,20 @@ import Error from '../../../components/random-task/error';
 import { Task as TaskType } from '../../../services/task';
 import { random } from '../../../helpers/random';
 import Task from '../../../components/task';
-import Button from '../../../components/button';
+import ShuffleButton from './button';
 
-import styles from './shuffle.module.sass';
+import styles from './mix.module.sass';
 
 const TAG: TagType = 'narrativas-visuales';
 const INTERVAL = 25;
 
-const Shuffle: NextPage = () => {
+const Random: NextPage = () => {
   const { error, loading, removeTask, tasks } = useTasks(TAG);
-  const [task, setTask] = useState<TaskType>();
   const [shuffling, setShuffling] = useState<boolean>(false);
+  const [task, setTask] = useState<TaskType>();
 
   const timer = useRef<number | undefined>(undefined);
+  const countLimit = useRef<number>(0);
 
   useEffect(() => {
     if (shuffling) {
@@ -38,17 +39,29 @@ const Shuffle: NextPage = () => {
     return () => clearInterval(timer.current);
   }, [shuffling]);
 
+  const setRandomTask = () => tasks && setTask(tasks[random(tasks.length)]);
+
   const shuffle = () => {
-    if (tasks) {
-      timer.current = window.setInterval(() => {
-        setTask(tasks[random(tasks.length)]);
-      }, INTERVAL);
+    if (!tasks) {
+      return;
     }
+
+    let count = 0;
+
+    timer.current = window.setInterval(() => {
+      if (count < countLimit.current) {
+        setRandomTask();
+        count += INTERVAL;
+      } else {
+        setShuffling(false);
+      }
+    }, INTERVAL);
   };
 
-  const handleShuffleStart = () => setShuffling(true);
-
-  const handleShuffleEnd = () => setShuffling(false);
+  const handleStartShuffling = (count: number) => {
+    countLimit.current = count;
+    setShuffling(true);
+  };
 
   return (
     <TaskContext.Provider value={{ tag: TAG, tasks: tasks || [] }}>
@@ -60,15 +73,7 @@ const Shuffle: NextPage = () => {
         ) : tasks ? (
           <div className={styles['shuffle-tasks']}>
             {task ? <Task task={task} /> : null}
-            {shuffling ? (
-              <Button onClick={handleShuffleEnd} type="primary">
-                Parar
-              </Button>
-            ) : (
-              <Button onClick={handleShuffleStart} type="primary">
-                Mezclar
-              </Button>
-            )}
+            <ShuffleButton disabled={shuffling} onEnd={handleStartShuffling} />
           </div>
         ) : null}
       </Layout>
@@ -76,4 +81,4 @@ const Shuffle: NextPage = () => {
   );
 };
 
-export default Shuffle;
+export default Random;

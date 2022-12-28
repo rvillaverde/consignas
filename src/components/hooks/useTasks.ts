@@ -25,7 +25,10 @@ const useTasks = (tag?: TagType) => {
     }
   };
 
-  return { error, loading, tasks };
+  const removeTask = (id: Task['id']) =>
+    setTasks(tasks?.filter(task => task.id !== id));
+
+  return { error, loading, removeTask, tasks };
 };
 
 export default useTasks;

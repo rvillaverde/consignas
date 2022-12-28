@@ -151,6 +151,26 @@ h1
   opacity: 0.5
   pointer-events: none
 
+.button.button-rounded
+  border: none
+  border-radius: 50%
+  height: 6rem
+  width: 6rem
+  &:not(.button-disabled):active
+    background-color: var(--color-tertiary)
+  &:not(.button-disabled)::before
+    border-radius: 50%
+    bottom: 0
+    height: 0
+    left: 0
+    margin: auto
+    right: 0
+    top: 0
+    transition: height 0.3s ease-in-out, width 0.3s ease-in-out
+  &:not(.button-disabled):hover::before
+    height: 100%
+    width: 100%
+
 .actions
   display: flex
   justify-content: center
