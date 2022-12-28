@@ -1,5 +1,5 @@
 import type { NextPage } from 'next';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { TagType } from '../../../api/task';
 import TaskContext from '../../../components/context/task';
 import useTasks from '../../../components/hooks/useTasks';
@@ -16,36 +16,35 @@ import styles from './shuffle.module.sass';
 const TAG: TagType = 'narrativas-visuales';
 const INTERVAL = 25;
 
-const Random: NextPage = () => {
+const Shuffle: NextPage = () => {
   const { error, loading, tasks } = useTasks(TAG);
   const [task, setTask] = useState<TaskType>();
   const [shuffling, setShuffling] = useState<boolean>(false);
-  const [interval, setInterval] = useState<number | undefined>();
+
+  const timer = useRef<number | undefined>(undefined);
+
+  useEffect(() => {
+    if (shuffling) {
+      shuffle();
+    } else {
+      clearInterval(timer.current);
+      timer.current = undefined;
+    }
+
+    return () => clearInterval(timer.current);
+  }, [shuffling]);
 
   const shuffle = () => {
     if (tasks) {
-      setTask(tasks[random(tasks.length)]);
+      timer.current = window.setInterval(() => {
+        setTask(tasks[random(tasks.length)]);
+      }, INTERVAL);
     }
   };
 
-  const handleShuffleStart = () => {
-    if (interval) {
-      clearInterval(interval);
-      setInterval(undefined);
-    }
+  const handleShuffleStart = () => setShuffling(true);
 
-    setInterval(window.setInterval(shuffle, INTERVAL));
-    setShuffling(true);
-  };
-
-  const handleShuffleEnd = () => {
-    if (interval) {
-      clearInterval(interval);
-      setInterval(undefined);
-    }
-
-    setShuffling(false);
-  };
+  const handleShuffleEnd = () => setShuffling(false);
 
   return (
     <TaskContext.Provider value={{ tag: TAG, tasks: tasks || [] }}>
@@ -73,4 +72,4 @@ const Random: NextPage = () => {
   );
 };
 
-export default Random;
+export default Shuffle;
