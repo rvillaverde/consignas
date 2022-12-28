@@ -1,5 +1,5 @@
 import type { NextPage } from 'next';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { TagType } from '../../../api/task';
 import TaskContext from '../../../components/context/task';
 import useTasks from '../../../components/hooks/useTasks';
@@ -27,10 +27,6 @@ const Random: NextPage = () => {
       setTask(tasks[random(tasks.length)]);
     }
   };
-
-  useEffect(() => {
-    document.querySelector('body')?.classList.add(TAG);
-  }, []);
 
   const handleShuffleStart = () => {
     if (interval) {

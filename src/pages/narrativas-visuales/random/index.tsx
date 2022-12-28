@@ -1,5 +1,4 @@
 import type { NextPage } from 'next';
-import { useEffect } from 'react';
 import { TagType } from '../../../api/task';
 import TaskContext from '../../../components/context/task';
 import useTasks from '../../../components/hooks/useTasks';
@@ -13,10 +12,6 @@ const TAG: TagType = 'narrativas-visuales';
 
 const Random: NextPage = () => {
   const { error, loading, tasks } = useTasks(TAG);
-
-  useEffect(() => {
-    document.querySelector('body')?.classList.add(TAG);
-  }, []);
 
   return (
     <TaskContext.Provider value={{ tag: TAG, tasks: tasks || [] }}>

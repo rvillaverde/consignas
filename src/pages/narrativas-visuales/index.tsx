@@ -1,5 +1,4 @@
 import type { NextPage } from 'next';
-import { useEffect } from 'react';
 import { TagType } from '../../api/task';
 import Card from '../../components/card';
 import { Layout } from '../../components/layout/narrativas-visuales';
@@ -9,10 +8,6 @@ const TAG: TagType = 'narrativas-visuales';
 const AVAILABLE_BACKGROUNDS = 7;
 
 const Random: NextPage = () => {
-  useEffect(() => {
-    document.querySelector('body')?.classList.add(TAG);
-  }, []);
-
   return (
     <Layout>
       <Card

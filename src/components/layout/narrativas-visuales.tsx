@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { TagType } from '../../api/task';
 import FooterNarrativasVisuales from '../footer/narrativas-visuales';
 import Head from '../head';
@@ -25,11 +25,17 @@ const MENU: Menu = {
   ],
 };
 
-export const Layout = ({ children }: PropTypes) => (
-  <div className={styles.container}>
-    <Head />
-    <Header href={`/${TAG}`} menu={MENU} title={TITLE} />
-    <main className={styles.main}>{children}</main>
-    <FooterNarrativasVisuales />
-  </div>
-);
+export const Layout = ({ children }: PropTypes) => {
+  useEffect(() => {
+    document.querySelector('body')?.classList.add(TAG);
+  }, []);
+
+  return (
+    <div className={styles.container}>
+      <Head />
+      <Header href={`/${TAG}`} menu={MENU} title={TITLE} />
+      <main className={styles.main}>{children}</main>
+      <FooterNarrativasVisuales />
+    </div>
+  );
+};
