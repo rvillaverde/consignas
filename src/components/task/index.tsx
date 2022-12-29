@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import html2canvas from 'html2canvas';
 import moment from 'moment';
 import React, { useRef, useState } from 'react';
@@ -11,6 +12,7 @@ import styles from './task.module.sass';
 
 interface PropTypes {
   actions?: ActionType[];
+  blur?: boolean;
   loading?: boolean;
   onLike?: () => Promise<void>;
   onReport?: () => Promise<void>;
@@ -20,6 +22,7 @@ interface PropTypes {
 
 const Task: React.FunctionComponent<PropTypes> = ({
   actions,
+  blur,
   loading,
   onLike,
   onReport,
@@ -82,7 +85,7 @@ const Task: React.FunctionComponent<PropTypes> = ({
     !!actions && actions.indexOf(action) > -1;
 
   return (
-    <div className={styles.task}>
+    <div className={classNames(styles.task, blur && styles.blur)}>
       {task && (
         <div className={styles['task-image']} ref={ref}>
           <span className={styles['task-image-description']}>

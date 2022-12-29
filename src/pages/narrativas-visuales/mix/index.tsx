@@ -72,7 +72,7 @@ const Random: NextPage = () => {
           <Error />
         ) : tasks ? (
           <div className={styles['shuffle-tasks']}>
-            {task ? <Task task={task} /> : null}
+            {task ? <Task blur={shuffling} task={task} /> : null}
             <ShuffleButton disabled={shuffling} onEnd={handleStartShuffling} />
           </div>
         ) : null}
