@@ -39,7 +39,12 @@ const ShuffleTasks: React.FunctionComponent<PropTypes> = ({
               blur={shuffling}
               task={task}
             />
-          ) : null}
+          ) : (
+            <h2>
+              Presioná el botón para mezclar el mazo y soltá para obtener una
+              consigna fotográfica al azar.
+            </h2>
+          )}
           <ShuffleButton
             disabled={shuffling}
             onButtonRelease={handleStartShuffling}
