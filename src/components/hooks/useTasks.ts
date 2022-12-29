@@ -6,7 +6,7 @@ import { Task } from '../../services/task';
 // @TODO: use local storage to filter tasks that user already got
 const useTasks = (tag?: TagType) => {
   const [error, setError] = useState<boolean>(false);
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
   const [saving, setSaving] = useState<boolean>(false);
   const [tasks, setTasks] = useState<Task[]>();
 
@@ -15,7 +15,7 @@ const useTasks = (tag?: TagType) => {
   }, []);
 
   const fetchTasks = async () => {
-    setLoading(true);
+    // setLoading(true);
     try {
       const tasks = await taskApi.list(tag);
       setTasks(shuffle(tasks));
