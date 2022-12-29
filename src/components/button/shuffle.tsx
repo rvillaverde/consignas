@@ -7,12 +7,14 @@ const INTERVAL = 25;
 
 interface PropTypes {
   disabled?: boolean;
-  onButtonRelease: (time: number) => void;
+  onPressEnd: (time: number) => void;
+  onPressStart: () => void;
 }
 
 const ShuffleButton: React.FunctionComponent<PropTypes> = ({
   disabled,
-  onButtonRelease: onEnd,
+  onPressEnd,
+  onPressStart,
 }: PropTypes) => {
   const [pressing, setPressing] = useState<boolean>(false);
   const [count, setCount] = useState<number>(0);
@@ -36,11 +38,14 @@ const ShuffleButton: React.FunctionComponent<PropTypes> = ({
       setCount(prev => prev + INTERVAL);
     }, INTERVAL));
 
-  const handleStart = () => setPressing(true);
+  const handleStart = () => {
+    setPressing(true);
+    onPressStart();
+  };
 
   const handleEnd = () => {
     setPressing(false);
-    onEnd(count);
+    onPressEnd(count);
   };
 
   return (

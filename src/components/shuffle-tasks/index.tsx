@@ -21,13 +21,9 @@ const ShuffleTasks: React.FunctionComponent<PropTypes> = ({
   const { remove, tasks } = useContext(TaskContext);
   const { shuffling, task } = useTaskShuffler(limit);
 
-  useEffect(() => {
-    if (shuffling && task) {
-      remove(task.id);
-    }
-  }, [shuffling]);
+  const handlePressStart = () => task && remove(task.id);
 
-  const handleStartShuffling = (count: number) => setLimit(count);
+  const handlePressEnd = (count: number) => setLimit(count);
 
   return (
     <div className={styles['shuffle-tasks']}>
@@ -47,7 +43,8 @@ const ShuffleTasks: React.FunctionComponent<PropTypes> = ({
           )}
           <ShuffleButton
             disabled={shuffling}
-            onButtonRelease={handleStartShuffling}
+            onPressEnd={handlePressEnd}
+            onPressStart={handlePressStart}
           />
         </>
       ) : (
