@@ -3,7 +3,7 @@ import { Task } from '../../services/task';
 export type TagType = 'narrativas-visuales';
 
 const taskApi = {
-  create: async (description: Task['description']): Promise<Task> => {
+  create: async (description: Task['description']): Promise<void> => {
     const res = await fetch('/api/tasks', {
       method: 'POST',
       headers: {

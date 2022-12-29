@@ -1,12 +1,12 @@
 import classNames from 'classnames';
 import html2canvas from 'html2canvas';
 import moment from 'moment';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Task } from '../../services/task';
 import Button from '../button';
 import TaskContext from '../context/task';
-import { ActionType } from '../random-task';
 import DescriptionInput from './description-input';
+import { ActionType } from './types';
 
 import styles from './task.module.sass';
 
@@ -14,8 +14,6 @@ interface PropTypes {
   actions?: ActionType[];
   blur?: boolean;
   loading?: boolean;
-  onLike?: () => Promise<void>;
-  onReport?: () => Promise<void>;
   onSave?: (description: Task['description']) => Promise<void>;
   task?: Task;
 }
@@ -24,12 +22,11 @@ const Task: React.FunctionComponent<PropTypes> = ({
   actions,
   blur,
   loading,
-  onLike,
-  onReport,
   onSave,
   task,
 }: PropTypes) => {
-  const { tag } = React.useContext(TaskContext);
+  const { like, report, tag } = React.useContext(TaskContext);
+
   const [description, setDescription] = useState<string>('');
   const [disableLike, setDisableLike] = useState<boolean>(false);
   const [disableReport, setDisableReport] = useState<boolean>(false);
@@ -37,6 +34,11 @@ const Task: React.FunctionComponent<PropTypes> = ({
   const url = `consignasfotograficas.com${tag ? `/${tag}` : ''}`;
 
   const ref = useRef<HTMLHeadingElement>(null);
+
+  useEffect(() => {
+    setDisableLike(false);
+    setDisableReport(false);
+  }, [task]);
 
   const showActions = (): boolean => !task || (!!actions && actions.length > 0);
 
@@ -70,13 +72,13 @@ const Task: React.FunctionComponent<PropTypes> = ({
   };
 
   const handleLike = async () => {
-    onLike && (await onLike());
+    task && (await like(task.id));
     setDisableLike(true);
     setDisableReport(true);
   };
 
   const handleReport = async () => {
-    onReport && (await onReport());
+    task && (await report(task.id));
     setDisableLike(true);
     setDisableReport(true);
   };

@@ -1,30 +1,27 @@
 import type { NextPage } from 'next';
-import { TagType } from '../../../api/task';
 import TaskContext from '../../../components/context/task';
-import useTasks from '../../../components/hooks/useTasks';
 import { Layout } from '../../../components/layout/narrativas-visuales';
 import Loading from '../../../components/loading';
 import Error from '../../../components/random-task/error';
-import RandomTask, { ActionType } from '../../../components/random-task';
+import { useContext } from 'react';
+import ShuffleTasks from '../../../components/shuffle-tasks';
+import { ActionType } from '../../../components/task/types';
 
-const ACTIONS: ActionType[] = ['download', 'like', 'next'];
-const TAG: TagType = 'narrativas-visuales';
+const ACTIONS: ActionType[] = ['download'];
 
 const Random: NextPage = () => {
-  const { error, loading, tasks } = useTasks(TAG);
+  const { loading, error, tasks } = useContext(TaskContext);
 
   return (
-    <TaskContext.Provider value={{ tag: TAG, tasks: tasks || [] }}>
-      <Layout>
-        {loading ? (
-          <Loading />
-        ) : error ? (
-          <Error />
-        ) : tasks ? (
-          <RandomTask actions={ACTIONS} />
-        ) : null}
-      </Layout>
-    </TaskContext.Provider>
+    <Layout>
+      {loading ? (
+        <Loading />
+      ) : error ? (
+        <Error />
+      ) : tasks ? (
+        <ShuffleTasks actions={ACTIONS} />
+      ) : null}
+    </Layout>
   );
 };
 

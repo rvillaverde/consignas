@@ -15,7 +15,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     if (description && description.length > 0) {
       try {
-        await taskApi.create({ description, likes: 0, reports: 0 });
+        await taskApi.create({ description, likes: 0, reports: 0, show: true });
+        // @TODO: Respond with task
         res.status(200).send({});
       } catch (e) {
         res.status(500).send('Error creating task');

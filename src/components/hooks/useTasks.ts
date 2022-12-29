@@ -7,6 +7,7 @@ import { Task } from '../../services/task';
 const useTasks = (tag?: TagType) => {
   const [error, setError] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
+  const [saving, setSaving] = useState<boolean>(false);
   const [tasks, setTasks] = useState<Task[]>();
 
   useEffect(() => {
@@ -25,10 +26,51 @@ const useTasks = (tag?: TagType) => {
     }
   };
 
-  const removeTask = (id: Task['id']) =>
+  const create = async (description: Task['description']) =>
+    await taskApi.create(description);
+
+  const like = async (id: Task['id']) => {
+    if (!tasks) {
+      return Promise.reject();
+    }
+
+    const task = tasks.find(t => t.id === id);
+
+    if (task) {
+      setSaving(true);
+      await taskApi.like(task.id);
+      task.likes++;
+      setSaving(false);
+
+      return Promise.resolve();
+    }
+
+    return Promise.reject('Task not found');
+  };
+
+  const report = async (id: Task['id']) => {
+    if (!tasks) {
+      return Promise.reject();
+    }
+
+    const task = tasks.find(t => t.id === id);
+
+    if (task) {
+      setSaving(true);
+      await taskApi.report(task.id);
+      task.reports++;
+      setSaving(false);
+
+      return Promise.resolve();
+    }
+
+    return Promise.reject('Task not found');
+  };
+
+  const remove = (id: Task['id']) =>
     setTasks(tasks?.filter(task => task.id !== id));
 
-  return { error, loading, removeTask, tasks };
+  return { create, error, like, loading, remove, report, saving, tasks };
 };
 
 export default useTasks;

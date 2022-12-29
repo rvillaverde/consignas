@@ -14,17 +14,17 @@ export interface Task {
   internalId: string;
   likes: number;
   reports: number;
+  show?: boolean;
 }
 
-const map = (record: AirtableRecord): Promise<Task> => {
-  return Promise.resolve({
+const map = (record: AirtableRecord): Promise<Task> =>
+  Promise.resolve({
     id: record.get('id') as string,
     internalId: record.id,
     description: record.get('description') as string,
     likes: record.get('likes') as number,
     reports: record.get('reports') as number,
   });
-};
 
 const toRecord = (task: any) => ({
   fields: {
