@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
-import Button from '../../../components/button';
+import Button from '.';
 
-import styles from './mix.module.sass';
+import styles from './button.module.sass';
 
 const INTERVAL = 25;
 
@@ -53,7 +53,7 @@ const ShuffleButton: React.FunctionComponent<PropTypes> = ({
         disabled={disabled}
         onPressEnd={handleEnd}
         onPressStart={handleStart}
-        rounded
+        round
         type="primary"
       >
         {pressing ? count : 'Mezclar'}

@@ -8,7 +8,7 @@ export interface PropTypes {
   onClick?: () => void;
   onPressEnd?: () => void;
   onPressStart?: () => void;
-  rounded?: boolean;
+  round?: boolean;
   submit?: boolean;
   type: 'primary' | 'secondary' | 'tertiary';
   href?: string;
@@ -21,7 +21,7 @@ const Button: React.FunctionComponent<PropTypes> = ({
   onClick,
   onPressEnd,
   onPressStart,
-  rounded,
+  round,
   submit,
   type,
 }: PropTypes) => {
@@ -29,7 +29,7 @@ const Button: React.FunctionComponent<PropTypes> = ({
     'button',
     `button-${type}`,
     disabled && 'button-disabled',
-    rounded && 'button-rounded',
+    round && 'button-round',
   );
 
   const content: JSX.Element = <div className="button-content">{children}</div>;

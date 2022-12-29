@@ -9,7 +9,7 @@ import Error from '../../../components/random-task/error';
 import { Task as TaskType } from '../../../services/task';
 import { random } from '../../../helpers/random';
 import Task from '../../../components/task';
-import ShuffleButton from './button';
+import ShuffleButton from '../../../components/button/shuffle';
 
 import styles from './mix.module.sass';
 
