@@ -17,8 +17,12 @@ interface PropTypes {
 const MENU: Menu = {
   items: [
     {
-      external: true,
-      href: 'https://www.santa-talleres.com/narrativas-visuales',
+      href: `/${TAG}/random`,
+      id: 'random',
+      label: 'Pedir consigna',
+    },
+    {
+      href: `/${TAG}/about`,
       id: 'sobre-el-taller',
       label: 'Sobre el Taller',
     },

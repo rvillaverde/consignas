@@ -1,4 +1,5 @@
 import React from 'react';
+import { TagType } from '../../../api/task';
 import { Task } from '../../../services/task';
 
 export interface TaskContextType {
@@ -9,7 +10,7 @@ export interface TaskContextType {
   remove: (id: Task['id']) => void;
   report: (id: Task['id']) => Promise<void>;
   saving: boolean;
-  tag?: 'narrativas-visuales';
+  tag?: TagType;
   tasks: Task[];
 }
 

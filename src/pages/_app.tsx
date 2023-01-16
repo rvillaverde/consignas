@@ -2,11 +2,13 @@ import type { AppProps } from 'next/app';
 import { useEffect } from 'react';
 import { TagType } from '../api/task';
 import useTasks from '../components/hooks/useTasks';
-import TaskContext, { TaskContextType } from '../components/context/task';
+import useWebContent from '../components/hooks/useWebContent';
+import TaskContext from '../components/context/task';
+import WebContentContext from '../components/context/web-content';
 
 import '../../styles/globals.sass';
 
-const TAGS: TagType[] = ['narrativas-visuales'];
+const TAGS: TagType[] = ['default', 'narrativas-visuales'];
 
 const MyApp = ({ Component, pageProps, router }: AppProps) => {
   const { pathname } = router;
@@ -15,26 +17,33 @@ const MyApp = ({ Component, pageProps, router }: AppProps) => {
   const { create, error, like, loading, remove, report, saving, tasks } =
     useTasks(tag);
 
+  const webContent = useWebContent(tag);
+
   useEffect(() => {
-    tag && document.querySelector('body')?.classList.add(tag);
+    updateBodyClass();
   }, [tag]);
 
-  const value: TaskContextType = {
-    create,
-    error,
-    like,
-    loading,
-    remove,
-    report,
-    saving,
-    tag,
-    tasks: tasks || [],
-  };
+  const updateBodyClass = () =>
+    tag && document.querySelector('body')?.classList.add(tag);
 
   return (
-    <TaskContext.Provider value={value}>
-      <Component {...pageProps} />
-    </TaskContext.Provider>
+    <WebContentContext.Provider value={webContent}>
+      <TaskContext.Provider
+        value={{
+          create,
+          error,
+          like,
+          loading,
+          remove,
+          report,
+          saving,
+          tag,
+          tasks: tasks || [],
+        }}
+      >
+        <Component {...pageProps} />
+      </TaskContext.Provider>
+    </WebContentContext.Provider>
   );
 };
 

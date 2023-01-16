@@ -1,7 +1,6 @@
 import airtable, { FieldSet, Record, Table } from 'airtable';
 import { Attachment } from 'airtable/lib/attachment';
 import { QueryParams } from 'airtable/lib/query_params';
-import { isEmpty, omit } from 'lodash';
 
 const view = 'web';
 

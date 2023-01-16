@@ -1,40 +1,40 @@
 import type { NextPage } from 'next';
-import Button from '../components/button';
-import { CREATE_TASK } from '../components/header/menu-items';
+import WebContentContext from '../components/context/web-content';
+import {
+  CREATE_TASK,
+  NARRATIVAS_VISUALES,
+} from '../components/header/menu-items';
+import Card from '../components/card';
 import { Layout } from '../components/layout';
 
-import styles from '../../styles/Home.module.sass';
-
-const Home: NextPage = () => {
-  return (
-    <Layout menu={{ items: [CREATE_TASK] }}>
-      <div className={styles.card}>
-        <p>
-          Consignas fotográficas es un proyecto colaborativo en donde podés
-          obtener una consigna aleatoria que funcione como inspiración o
-          disparador de una idea, serie o proyecto fotográfico a desarrollar o
-          simplemente como un desbloqueo creativo para sacar la cámara con un
-          propósito puntual en mente.
-        </p>
-        <p>
-          También podés crear consignas nuevas que serán incluidas
-          automáticamente en nuestra base de datos para que otrxs puedan acceder
-          a ellas.
-        </p>
-        <p>
-          Compartilo con amigues, fotógrafos o aficionados que cuantos más
-          seamos, más diversas van a ser las consignas que tengamos para
-          ofrecerte y más rico se va a volver el proyecto. Bienvenidx!
-        </p>
-      </div>
-
-      <div className="actions">
-        <Button href="/random" type="primary">
-          Pedir consigna
-        </Button>
-      </div>
-    </Layout>
-  );
-};
+const Home: NextPage = () => (
+  <WebContentContext.Consumer>
+    {({ content, loading }) => (
+      <Layout menu={{ items: [CREATE_TASK, NARRATIVAS_VISUALES] }}>
+        <Card
+          actions={[
+            {
+              href: '/random',
+              label: 'Pedir consigna',
+              type: 'primary',
+            },
+          ]}
+          type="large"
+        >
+          <>
+            {loading
+              ? ''
+              : content.home
+              ? content.home
+                  .split('\n')
+                  .filter(p => p.length > 0)
+                  .map((p, i) => <p key={i}>{p}</p>)
+              : null}
+          </>
+        </Card>
+      </Layout>
+    )}
+  </WebContentContext.Consumer>
+);
 
 export default Home;

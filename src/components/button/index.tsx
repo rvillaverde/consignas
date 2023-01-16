@@ -10,6 +10,7 @@ export interface PropTypes {
   onPressStart?: () => void;
   round?: boolean;
   submit?: boolean;
+  target?: '_blank' | '_self';
   type: 'primary' | 'secondary' | 'tertiary';
   href?: string;
 }
@@ -23,6 +24,7 @@ const Button: React.FunctionComponent<PropTypes> = ({
   onPressStart,
   round,
   submit,
+  target,
   type,
 }: PropTypes) => {
   const className = classNames(
@@ -36,7 +38,9 @@ const Button: React.FunctionComponent<PropTypes> = ({
 
   return href ? (
     <Link href={href}>
-      <a className={className}>{content}</a>
+      <a className={className} target={target || '_self'}>
+        {content}
+      </a>
     </Link>
   ) : (
     <button

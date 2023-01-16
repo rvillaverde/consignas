@@ -1,6 +1,7 @@
 import { Task } from '../../services/task';
 
-export type TagType = 'narrativas-visuales';
+// @TODO: move this type to other file
+export type TagType = 'default' | 'narrativas-visuales';
 
 const taskApi = {
   create: async (description: Task['description']): Promise<void> => {

@@ -8,8 +8,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     const params = query.tags ? { tags: query.tags as string } : undefined;
 
     const tasks = await taskApi.list(params);
-    res.status(200).json(tasks);
+    return res.status(200).json(tasks);
   }
+
   if (req.method === 'POST') {
     const { description } = req.body;
 
@@ -17,12 +18,12 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       try {
         await taskApi.create({ description, likes: 0, reports: 0, show: true });
         // @TODO: Respond with task
-        res.status(200).send({});
+        return res.status(200).send({});
       } catch (e) {
-        res.status(500).send('Error creating task');
+        return res.status(500).send('Error creating task');
       }
     } else {
-      res.status(500).send('Empty description');
+      return res.status(500).send('Empty description');
     }
   }
 };
