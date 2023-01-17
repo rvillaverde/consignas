@@ -5,13 +5,9 @@ const FooterNarrativasVisuales = () => (
   <Footer>
     <span>
       Oráculo virtual de consignas fotográficas desarrollado colaborativamente
-      por{' '}
-      <Link href="https://www.instagram.com/ruminga/">
-        <a target="_blank">Ruminga</a>
-      </Link>{' '}
-      y{' '}
+      por <Link href="https://www.instagram.com/ruminga/">Ruminga</Link> y{' '}
       <Link href="https://www.santa-talleres.com/" target="_blank">
-        <a target="_blank">Santa Talleres</a>
+        Santa Talleres
       </Link>
       .
     </span>

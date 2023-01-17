@@ -27,17 +27,18 @@ const Header: React.FunctionComponent<PropTypes> = ({
 }: PropTypes) => (
   <header className={styles.header}>
     <Link href={href}>
-      <a>
-        <h1 className={styles.title}>{title}</h1>
-      </a>
+      <h1 className={styles.title}>{title}</h1>
     </Link>
     {menu && (
       <menu>
         <ul>
           {menu.items.map(item => (
             <li key={item.id}>
-              <Link href={item.href}>
-                <a target={item.external ? '_blank' : '_self'}>{item.label}</a>
+              <Link
+                href={item.href}
+                target={item.external ? '_blank' : '_self'}
+              >
+                {item.label}
               </Link>
             </li>
           ))}

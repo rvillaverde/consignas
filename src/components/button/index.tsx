@@ -37,10 +37,8 @@ const Button: React.FunctionComponent<PropTypes> = ({
   const content: JSX.Element = <div className="button-content">{children}</div>;
 
   return href ? (
-    <Link href={href}>
-      <a className={className} target={target || '_self'}>
-        {content}
-      </a>
+    <Link href={href} className={className} target={target || '_self'}>
+      {content}
     </Link>
   ) : (
     <button
