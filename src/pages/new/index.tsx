@@ -2,6 +2,10 @@ import type { NextPage } from 'next';
 import { useContext, useState } from 'react';
 import TaskContext from '../../components/context/task';
 import { Layout } from '../../components/layout';
+import {
+  CREATE_TASK,
+  NARRATIVAS_VISUALES,
+} from '../../components/header/menu-items';
 import Error from '../../components/new-task/error';
 import Success from '../../components/new-task/success';
 import TaskComponent from '../../components/task';
@@ -29,7 +33,7 @@ const Home: NextPage = () => {
   };
 
   return (
-    <Layout>
+    <Layout menu={{ items: [CREATE_TASK, NARRATIVAS_VISUALES] }}>
       {!created && <h1 className={styles.title}>Nueva consigna:</h1>}
 
       {created ? (

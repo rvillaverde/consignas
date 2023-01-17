@@ -23,8 +23,13 @@ const MyApp = ({ Component, pageProps, router }: AppProps) => {
     updateBodyClass();
   }, [tag]);
 
-  const updateBodyClass = () =>
-    tag && document.querySelector('body')?.classList.add(tag);
+  const updateBodyClass = () => {
+    document.querySelector('body')?.classList.remove(...TAGS);
+
+    if (tag) {
+      document.querySelector('body')?.classList.add(tag);
+    }
+  };
 
   return (
     <WebContentContext.Provider value={webContent}>
