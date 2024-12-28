@@ -1,16 +1,13 @@
 import type { NextPage } from 'next';
 import WebContentContext from '../components/context/web-content';
-import {
-  CREATE_TASK,
-  NARRATIVAS_VISUALES,
-} from '../components/header/menu-items';
+import { NARRATIVAS_VISUALES } from '../components/header/menu-items';
 import Card from '../components/card';
 import { Layout } from '../components/layout';
 
 const Home: NextPage = () => (
   <WebContentContext.Consumer>
     {({ content, loading }) => (
-      <Layout menu={{ items: [CREATE_TASK, NARRATIVAS_VISUALES] }}>
+      <Layout menu={{ items: [NARRATIVAS_VISUALES] }}>
         <Card
           actions={[
             {
@@ -25,11 +22,11 @@ const Home: NextPage = () => (
             {loading
               ? ''
               : content.home
-              ? content.home
-                  .split('\n')
-                  .filter(p => p.length > 0)
-                  .map((p, i) => <p key={i}>{p}</p>)
-              : null}
+                ? content.home
+                    .split('\n')
+                    .filter(p => p.length > 0)
+                    .map((p, i) => <p key={i}>{p}</p>)
+                : null}
           </>
         </Card>
       </Layout>

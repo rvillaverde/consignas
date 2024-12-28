@@ -1,6 +1,6 @@
 import { MenuItem } from '.';
 
-export const CREATE_TASK: MenuItem = {
+export const CREATE_PROMPT: MenuItem = {
   href: '/new',
   id: 'create-task',
   label: 'Crear consigna',

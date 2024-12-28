@@ -1,7 +1,6 @@
 import type { NextPage } from 'next';
 import React, { useContext } from 'react';
 import { PromptContext } from '../../components/context/task';
-import { CREATE_TASK } from '../../components/header/menu-items';
 import { Layout } from '../../components/layout';
 import Loading from '../../components/loading';
 import Error from '../../components/random-task/error';
@@ -14,7 +13,7 @@ const Random: NextPage = () => {
   const { error, loading, prompts } = useContext(PromptContext);
 
   return (
-    <Layout menu={{ items: [CREATE_TASK] }}>
+    <Layout>
       {loading ? (
         <Loading />
       ) : error ? (
