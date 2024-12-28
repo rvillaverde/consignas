@@ -1,14 +1,15 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import taskApi from '../../../services/task';
+import { PropmtService } from '../../../services/prompt';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'GET') {
     const { query } = req;
 
-    const params = query.tags ? { tags: query.tags as string } : undefined;
+    const prompts = await PropmtService.list(
+      query.tags ? (query.tags as string) : undefined,
+    );
 
-    const tasks = await taskApi.list(params);
-    return res.status(200).json(tasks);
+    return res.status(200).json(prompts);
   }
 
   if (req.method === 'POST') {
@@ -16,7 +17,14 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     if (description && description.length > 0) {
       try {
-        await taskApi.create({ description, likes: 0, reports: 0, show: true });
+        await PropmtService.create({
+          description,
+          likes: 0,
+          reports: 0,
+          show: true,
+          tags: [],
+        });
+
         // @TODO: Respond with task
         return res.status(200).send({});
       } catch (e) {

@@ -1,16 +1,22 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import taskApi from '../../../../services/task';
+import { isNumericString } from '../../../../helpers/is-numeric-string';
+import { PropmtService } from '../../../../services/prompt';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { id } = req.query;
 
   if (req.method === 'POST') {
-    const task = await taskApi.find(id as string);
+    if (!id || typeof id !== 'string' || !isNumericString(id)) {
+      return res.status(400).json({ error: 'Invalid task ID' });
+    }
 
-    task.reports++;
-    await taskApi.update(task.internalId, { reports: task.reports });
+    const prompt = await PropmtService.report(parseInt(id));
 
-    res.status(200).json(task);
+    if (!prompt) {
+      return res.status(400).json({ error: 'Invalid task ID' });
+    }
+
+    res.status(200).json(prompt);
   }
 };
 
