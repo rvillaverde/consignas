@@ -1,34 +1,36 @@
-import { omit } from 'lodash';
-import { TagType } from '../../api/task';
-import Airtable, { AirtableRecord, BaseRecord } from '../../lib/airtable';
+import { GoogleSheetsService } from '../../lib/google-sheets';
+import { Tag, WebContent } from '../../data';
 
-const TABLE = 'web-content';
+const isValidTag = (tag: string): tag is Tag =>
+  ['default', 'narrativas-visuales'].includes(tag);
 
-export interface WebContent extends BaseRecord {
-  key: string;
-  value: string;
-  tag?: TagType;
-}
+const transformWebContentData = (data: string[]): WebContent => {
+  const [key, value, tag = ''] = data;
 
-const map = (record: AirtableRecord): Promise<WebContent> =>
-  Promise.resolve({
-    id: record.get('id') as string,
-    key: record.get('key') as string,
-    internalId: record.id,
-    value: record.get('value') as string,
-  });
-
-const toRecord = (webContent: any) => ({
-  fields: {
-    ...omit(webContent, ['id']),
-  },
-});
-
-const airtable = new Airtable<WebContent>(TABLE, map, toRecord);
-
-const api = {
-  fetchContent: (tag: TagType): Promise<WebContent[]> =>
-    airtable.findByField({ tag }),
+  return {
+    key,
+    value,
+    tag: isValidTag(tag) ? tag : 'default',
+  };
 };
 
-export default api;
+const PAGE = 'WebContent';
+
+export class WebContentService {
+  private static cache: WebContent[] = [];
+  private static service = new GoogleSheetsService(PAGE);
+
+  constructor() {
+    throw new Error('Cannot instantiate static class');
+  }
+
+  static fetch = async (tag: Tag) => {
+    const data = await this.service.fetch('A2', 'C133');
+
+    this.cache = data.map(transformWebContentData);
+
+    return this.cache.filter(webContent =>
+      tag ? webContent.tag === tag : true,
+    );
+  };
+}
