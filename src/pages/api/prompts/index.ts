@@ -18,6 +18,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     if (description && description.length > 0) {
       try {
         await PropmtService.create({
+          createdAt: new Date(),
           description,
           likes: 0,
           reports: 0,
