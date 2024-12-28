@@ -1,6 +1,6 @@
 import type { NextPage } from 'next';
 import React, { useContext } from 'react';
-import TaskContext from '../../components/context/task';
+import { PromptContext } from '../../components/context/task';
 import { CREATE_TASK } from '../../components/header/menu-items';
 import { Layout } from '../../components/layout';
 import Loading from '../../components/loading';
@@ -11,7 +11,7 @@ import { ActionType } from '../../components/task/types';
 const ACTIONS: ActionType[] = ['create', 'download', 'like', 'report'];
 
 const Random: NextPage = () => {
-  const { error, loading, tasks } = useContext(TaskContext);
+  const { error, loading, prompts } = useContext(PromptContext);
 
   return (
     <Layout menu={{ items: [CREATE_TASK] }}>
@@ -19,7 +19,7 @@ const Random: NextPage = () => {
         <Loading />
       ) : error ? (
         <Error />
-      ) : tasks ? (
+      ) : prompts ? (
         <ShuffleTasks actions={ACTIONS} />
       ) : null}
     </Layout>

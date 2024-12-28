@@ -1,20 +1,19 @@
 import React from 'react';
-import { TagType } from '../../../api/task';
-import { Task } from '../../../services/task';
+import { Prompt, Tag } from '../../../data';
 
-export interface TaskContextType {
-  create: (description: Task['description']) => Promise<void>;
+export interface PromptContextType {
+  create: (description: Prompt['description']) => Promise<void>;
   error: boolean;
-  like: (id: Task['id']) => Promise<void>;
+  like: (id: Prompt['id']) => Promise<void>;
   loading: boolean;
-  remove: (id: Task['id']) => void;
-  report: (id: Task['id']) => Promise<void>;
+  remove: (id: Prompt['id']) => void;
+  report: (id: Prompt['id']) => Promise<void>;
   saving: boolean;
-  tag?: TagType;
-  tasks: Task[];
+  tag?: Tag;
+  prompts: Prompt[];
 }
 
-const TaskContext = React.createContext<TaskContextType>({
+export const PromptContext = React.createContext<PromptContextType>({
   create: () => Promise.resolve(),
   error: false,
   like: () => Promise.resolve(),
@@ -22,7 +21,5 @@ const TaskContext = React.createContext<TaskContextType>({
   remove: () => undefined,
   report: () => Promise.resolve(),
   saving: false,
-  tasks: [],
+  prompts: [],
 });
-
-export default TaskContext;

@@ -1,6 +1,6 @@
 import type { NextPage } from 'next';
 import { useContext, useState } from 'react';
-import TaskContext from '../../components/context/task';
+import { PromptContext } from '../../components/context/task';
 import { Layout } from '../../components/layout';
 import {
   CREATE_TASK,
@@ -9,16 +9,16 @@ import {
 import Error from '../../components/new-task/error';
 import Success from '../../components/new-task/success';
 import TaskComponent from '../../components/task';
-import { Task } from '../../services/task';
+import { Prompt } from '../../data';
 
 import styles from '../../../styles/Home.module.sass';
 
 const Home: NextPage = () => {
-  const { create, saving } = useContext(TaskContext);
+  const { create, saving } = useContext(PromptContext);
   const [created, setCreated] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
 
-  const handleSave = async (description: Task['description']) => {
+  const handleSave = async (description: Prompt['description']) => {
     try {
       await create(description);
       setCreated(true);

@@ -2,11 +2,11 @@ import classNames from 'classnames';
 import html2canvas from 'html2canvas';
 import moment from 'moment';
 import React, { useEffect, useRef, useState } from 'react';
-import { Task } from '../../services/task';
 import Button from '../button';
-import TaskContext from '../context/task';
+import { PromptContext } from '../context/task';
 import DescriptionInput from './description-input';
 import { ActionType } from './types';
+import { Prompt as PromptType } from '../../data';
 
 import styles from './task.module.sass';
 
@@ -14,8 +14,8 @@ interface PropTypes {
   actions?: ActionType[];
   blur?: boolean;
   loading?: boolean;
-  onSave?: (description: Task['description']) => Promise<void>;
-  task?: Task;
+  onSave?: (description: PromptType['description']) => Promise<void>;
+  task?: PromptType;
 }
 
 const Task: React.FunctionComponent<PropTypes> = ({
@@ -25,7 +25,7 @@ const Task: React.FunctionComponent<PropTypes> = ({
   onSave,
   task,
 }: PropTypes) => {
-  const { like, report, tag } = React.useContext(TaskContext);
+  const { like, report, tag } = React.useContext(PromptContext);
 
   const [description, setDescription] = useState<string>('');
   const [disableLike, setDisableLike] = useState<boolean>(false);

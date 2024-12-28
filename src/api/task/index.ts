@@ -1,11 +1,8 @@
-import { Task } from '../../services/task';
+import { Prompt, Tag } from '../../data';
 
-// @TODO: move this type to other file
-export type TagType = 'default' | 'narrativas-visuales';
-
-const taskApi = {
-  create: async (description: Task['description']): Promise<void> => {
-    const res = await fetch('/api/tasks', {
+const promptApi = {
+  create: async (description: Prompt['description']): Promise<void> => {
+    const res = await fetch('/api/Prompts', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -15,27 +12,23 @@ const taskApi = {
 
     return res.json();
   },
-  get: async (id: Task['internalId']): Promise<Task> => {
-    const res = await fetch(`/api/tasks/${id}`);
-    return await res.json();
-  },
-  like: async (id: Task['id']): Promise<Task> => {
-    const res = await fetch(`/api/tasks/${id}/like`, {
+  like: async (id: Prompt['id']): Promise<Prompt> => {
+    const res = await fetch(`/api/Prompts/${id}/like`, {
       method: 'POST',
     });
 
     return res.json();
   },
-  list: async (tags?: TagType): Promise<Task[]> => {
-    const res = await fetch(`/api/tasks${tags ? '?tags=' + tags : '/'}`);
+  list: async (tags?: Tag): Promise<Prompt[]> => {
+    const res = await fetch(`/api/Prompts${tags ? '?tags=' + tags : '/'}`);
     return await res.json();
   },
-  random: async (): Promise<Task> => {
-    const res = await fetch('/api/tasks/random');
+  random: async (): Promise<Prompt> => {
+    const res = await fetch('/api/Prompts/random');
     return await res.json();
   },
-  report: async (id: Task['id']): Promise<Task> => {
-    const res = await fetch(`/api/tasks/${id}/report`, {
+  report: async (id: Prompt['id']): Promise<Prompt> => {
+    const res = await fetch(`/api/Prompts/${id}/report`, {
       method: 'POST',
     });
 
@@ -43,4 +36,4 @@ const taskApi = {
   },
 };
 
-export default taskApi;
+export default promptApi;

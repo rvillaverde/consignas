@@ -1,21 +1,21 @@
 import type { AppProps } from 'next/app';
 import { useEffect } from 'react';
-import { TagType } from '../api/task';
-import useTasks from '../components/hooks/useTasks';
+import usePrompts from '../components/hooks/usePrompts';
 import useWebContent from '../components/hooks/useWebContent';
-import TaskContext from '../components/context/task';
+import { PromptContext } from '../components/context/task';
 import WebContentContext from '../components/context/web-content';
+import { Tag } from '../data';
 
 import '../../styles/globals.sass';
 
-const TAGS: TagType[] = ['default', 'narrativas-visuales'];
+const TAGS: Tag[] = ['default', 'narrativas-visuales'];
 
 const MyApp = ({ Component, pageProps, router }: AppProps) => {
   const { pathname } = router;
   const tag = TAGS.find(t => pathname.indexOf(t) > -1);
 
-  const { create, error, like, loading, remove, report, saving, tasks } =
-    useTasks(tag);
+  const { create, error, like, loading, prompts, remove, report, saving } =
+    usePrompts(tag);
 
   const webContent = useWebContent(tag);
 
@@ -33,7 +33,7 @@ const MyApp = ({ Component, pageProps, router }: AppProps) => {
 
   return (
     <WebContentContext.Provider value={webContent}>
-      <TaskContext.Provider
+      <PromptContext.Provider
         value={{
           create,
           error,
@@ -43,11 +43,11 @@ const MyApp = ({ Component, pageProps, router }: AppProps) => {
           report,
           saving,
           tag,
-          tasks: tasks || [],
+          prompts: prompts || [],
         }}
       >
         <Component {...pageProps} />
-      </TaskContext.Provider>
+      </PromptContext.Provider>
     </WebContentContext.Provider>
   );
 };

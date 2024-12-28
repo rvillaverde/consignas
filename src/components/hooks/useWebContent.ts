@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
-import { TagType } from '../../api/task';
 import webContentApi from '../../api/web-content';
 import { WebContentContextType } from '../context/web-content';
+import { Tag } from '../../data';
 
 type Content = WebContentContextType['content'];
 
-const useWebContent = (tag?: TagType) => {
+const useWebContent = (tag?: Tag) => {
   const [error, setError] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
   const [content, setContent] = useState<Content>({});
@@ -16,6 +16,7 @@ const useWebContent = (tag?: TagType) => {
 
   const fetchContent = async () => {
     setLoading(true);
+
     try {
       const webContent = await webContentApi.fetch(tag || 'default');
 

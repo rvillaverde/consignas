@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
-import TaskContext from '../context/task';
-import useRandomTask from '../hooks/useRandomTask';
+import { PromptContext } from '../context/task';
+import useRandomPrompt from '../hooks/useRandomPrompt';
 import Loading from '../loading';
 import TaskComponent from '../task';
 import { ActionType } from '../task/types';
@@ -14,8 +14,8 @@ interface PropTypes {
 const RandomTask: React.FunctionComponent<PropTypes> = ({
   actions,
 }: PropTypes) => {
-  const { saving } = useContext(TaskContext);
-  const { emptyStack, loading, refresh, task } = useRandomTask();
+  const { saving } = useContext(PromptContext);
+  const { emptyStack, loading, refresh, prompt } = useRandomPrompt();
 
   const hasAction = (action: ActionType): boolean =>
     actions.indexOf(action) > -1;
@@ -26,7 +26,9 @@ const RandomTask: React.FunctionComponent<PropTypes> = ({
 
   return (
     <div className={styles['random-task']}>
-      {task && <TaskComponent actions={actions} loading={saving} task={task} />}
+      {prompt && (
+        <TaskComponent actions={actions} loading={saving} task={prompt} />
+      )}
       {emptyStack && (
         <div className={styles['empty-stack']}>
           <strong>Uia...!</strong>

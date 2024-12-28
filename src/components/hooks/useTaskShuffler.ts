@@ -1,14 +1,14 @@
 import { useContext, useEffect, useRef, useState } from 'react';
 import { random } from '../../helpers/random';
-import { Task } from '../../services/task';
-import TaskContext from '../context/task';
+import { PromptContext } from '../context/task';
+import { Prompt } from '../../data';
 
 const INTERVAL = 25;
 
 const useTaskShuffler = (limit: number) => {
-  const { tasks } = useContext(TaskContext);
+  const { prompts } = useContext(PromptContext);
   const [shuffling, setShuffling] = useState<boolean>(false);
-  const [task, setTask] = useState<Task>();
+  const [prompt, setPrompt] = useState<Prompt>();
 
   const timer = useRef<number | undefined>(undefined);
 
@@ -27,7 +27,7 @@ const useTaskShuffler = (limit: number) => {
     }
   }, [shuffling]);
 
-  const setRandomTask = () => setTask(tasks[random(tasks.length)]);
+  const setRandomTask = () => setPrompt(prompts[random(prompts.length)]);
 
   const shuffle = () => {
     setShuffling(true);
@@ -44,7 +44,7 @@ const useTaskShuffler = (limit: number) => {
     }, INTERVAL);
   };
 
-  return { shuffling, task };
+  return { shuffling, prompt };
 };
 
 export default useTaskShuffler;

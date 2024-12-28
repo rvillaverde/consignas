@@ -1,11 +1,11 @@
 import type { NextPage } from 'next';
-import { TagType } from '../../../api/task';
 import Card from '../../../components/card';
 import WebContentContext from '../../../components/context/web-content';
 import { Layout } from '../../../components/layout/narrativas-visuales';
+import { Tag } from '../../../data';
 import { random } from '../../../helpers/random';
 
-const TAG: TagType = 'narrativas-visuales';
+const TAG: Tag = 'narrativas-visuales';
 const AVAILABLE_BACKGROUNDS = 7;
 
 const Random: NextPage = () => (

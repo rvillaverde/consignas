@@ -1,7 +1,7 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { Task as TaskType } from '../../services/task';
+import React, { useContext, useState } from 'react';
+import { Prompt } from '../../data';
 import ShuffleButton from '../button/shuffle';
-import TaskContext from '../context/task';
+import { PromptContext } from '../context/task';
 import EmptyStack from '../empty-stack';
 import useTaskShuffler from '../hooks/useTaskShuffler';
 import Task from '../task';
@@ -11,29 +11,29 @@ import styles from './shuffle-tasks.module.sass';
 
 interface PropTypes {
   actions?: ActionType[];
-  onRemoveTask?: (id: TaskType['id']) => void;
+  onRemoveTask?: (id: Prompt['id']) => void;
 }
 
 const ShuffleTasks: React.FunctionComponent<PropTypes> = ({
   actions,
 }: PropTypes) => {
   const [limit, setLimit] = useState<number>(0);
-  const { remove, tasks } = useContext(TaskContext);
-  const { shuffling, task } = useTaskShuffler(limit);
+  const { remove, prompts } = useContext(PromptContext);
+  const { shuffling, prompt } = useTaskShuffler(limit);
 
-  const handlePressStart = () => task && remove(task.id);
+  const handlePressStart = () => prompt && remove(prompt.id);
 
   const handlePressEnd = (count: number) => setLimit(count);
 
   return (
     <div className={styles['shuffle-tasks']}>
-      {tasks && tasks.length ? (
+      {prompts && prompts.length ? (
         <>
-          {task ? (
+          {prompt ? (
             <Task
               actions={shuffling ? [] : actions}
               blur={shuffling}
-              task={task}
+              task={prompt}
             />
           ) : (
             <h2>

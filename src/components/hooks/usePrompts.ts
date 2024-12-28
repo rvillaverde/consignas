@@ -1,14 +1,14 @@
 import { shuffle } from 'lodash';
 import { useEffect, useState } from 'react';
-import taskApi, { TagType } from '../../api/task';
-import { Task } from '../../services/task';
+import taskApi from '../../api/task';
+import { Prompt, Tag } from '../../data';
 
 // @TODO: use local storage to filter tasks that user already got
-const useTasks = (tag?: TagType) => {
+const usePrompts = (tag?: Tag) => {
   const [error, setError] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
   const [saving, setSaving] = useState<boolean>(false);
-  const [tasks, setTasks] = useState<Task[]>();
+  const [prompts, setPrompts] = useState<Prompt[]>();
 
   useEffect(() => {
     fetchTasks();
@@ -18,7 +18,8 @@ const useTasks = (tag?: TagType) => {
     // setLoading(true);
     try {
       const tasks = await taskApi.list(tag);
-      setTasks(shuffle(tasks));
+
+      setPrompts(shuffle(tasks));
     } catch {
       setError(true);
     } finally {
@@ -26,15 +27,15 @@ const useTasks = (tag?: TagType) => {
     }
   };
 
-  const create = async (description: Task['description']) =>
+  const create = async (description: Prompt['description']) =>
     await taskApi.create(description);
 
-  const like = async (id: Task['id']) => {
-    if (!tasks) {
+  const like = async (id: Prompt['id']) => {
+    if (!prompts) {
       return Promise.reject();
     }
 
-    const task = tasks.find(t => t.id === id);
+    const task = prompts.find(t => t.id === id);
 
     if (task) {
       setSaving(true);
@@ -45,15 +46,15 @@ const useTasks = (tag?: TagType) => {
       return Promise.resolve();
     }
 
-    return Promise.reject('Task not found');
+    return Promise.reject('Prompt not found');
   };
 
-  const report = async (id: Task['id']) => {
-    if (!tasks) {
+  const report = async (id: Prompt['id']) => {
+    if (!prompts) {
       return Promise.reject();
     }
 
-    const task = tasks.find(t => t.id === id);
+    const task = prompts.find(t => t.id === id);
 
     if (task) {
       setSaving(true);
@@ -64,13 +65,22 @@ const useTasks = (tag?: TagType) => {
       return Promise.resolve();
     }
 
-    return Promise.reject('Task not found');
+    return Promise.reject('Prompt not found');
   };
 
-  const remove = (id: Task['id']) =>
-    setTasks(tasks?.filter(task => task.id !== id));
+  const remove = (id: Prompt['id']) =>
+    setPrompts(prompts?.filter(task => task.id !== id));
 
-  return { create, error, like, loading, remove, report, saving, tasks };
+  return {
+    create,
+    error,
+    like,
+    loading,
+    remove,
+    report,
+    saving,
+    prompts,
+  };
 };
 
-export default useTasks;
+export default usePrompts;

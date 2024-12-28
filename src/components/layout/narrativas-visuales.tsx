@@ -1,12 +1,12 @@
-import React, { useEffect } from 'react';
-import { TagType } from '../../api/task';
+import React from 'react';
+import { Tag } from '../../data';
 import FooterNarrativasVisuales from '../footer/narrativas-visuales';
 import Head from '../head';
 import Header, { Menu } from '../header';
 
 import styles from '../../../styles/Home.module.sass';
 
-const TAG: TagType = 'narrativas-visuales';
+const TAG: Tag = 'narrativas-visuales';
 
 const TITLE = 'Narrativas Visuales | Oráculo fotográfico';
 
