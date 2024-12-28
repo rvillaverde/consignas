@@ -2,7 +2,8 @@
   "arrowParens": "avoid",
   "endOfLine": "auto",
   "htmlWhitespaceSensitivity": "strict",
+  "semi": true,
   "singleQuote": true,
-  "trailingComma": "all",
-  "tabWidth": 2
+  "tabWidth": 2,
+  "trailingComma": "all"
 }

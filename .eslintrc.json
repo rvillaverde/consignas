@@ -1,0 +1,19 @@
+{
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:@next/next/recommended",
+    "prettier"
+  ],
+  "parserOptions": {
+    "ecmaVersion": 2021,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "plugins": ["@typescript-eslint", "react", "prettier"],
+  "rules": {
+    "prettier/prettier": "error"
+  }
+}
