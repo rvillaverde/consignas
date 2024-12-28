@@ -1,6 +1,7 @@
 export interface Prompt {
-  id: number;
+  createdAt: Date | null;
   description: string;
+  id: number;
   likes: number;
   reports: number;
   show: boolean;
