@@ -12,7 +12,7 @@ interface PropTypes {
 export const Layout = ({ children, menu }: PropTypes) => (
   <div className={styles.container}>
     <Head />
-    <Header href="/" menu={menu} title="Consignas fotográficas" />
+    <Header href="/" menu={menu} title="Oráculo fotográfico" />
     <main className={styles.main}>{children}</main>
     <footer className={styles.footer}></footer>
   </div>
