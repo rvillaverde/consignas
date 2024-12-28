@@ -22,7 +22,7 @@ const transformDataToPrompt = (data: string[]): Prompt => {
     likes: parseInt(likes),
     reports: parseInt(reports),
     show: show === 'TRUE',
-    tags: tags.split(','),
+    tags: tags ? tags.split(',') : [],
   };
 };
 
