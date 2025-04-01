@@ -39,7 +39,7 @@ export class PropmtService {
   };
 
   static list = async (tag?: string) => {
-    const data = await this.service.fetch('A2', 'G133');
+    const data = await this.service.fetch('A2', 'G200');
 
     this.cache = data.map(transformDataToPrompt);
 

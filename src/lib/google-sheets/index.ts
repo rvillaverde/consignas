@@ -1,5 +1,5 @@
 const API_KEY = process?.env.GOOGLE_API_KEY;
-const SHEET_ID = process?.env.GOOGLE_SHEET_ID;
+const SPREADSHEET_ID = process?.env.GOOGLE_SHEET_ID;
 
 export class GoogleSheetsService {
   page: string = '';
@@ -8,16 +8,22 @@ export class GoogleSheetsService {
     this.page = page;
   }
 
+  private getAPIKeyParam = () => {
+    return `key=${API_KEY}`;
+  };
+
   private getUrl = (from: string, to: string) => {
     const range = `${this.page}!${from}:${to}`;
 
-    return `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${range}?key=${API_KEY}`;
+    return `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${range}`;
   };
 
   async fetch(from: string, to: string) {
     const url = this.getUrl(from, to);
 
-    return fetch(url)
+    console.log('Fetch spreadsheet data from:', url);
+
+    return fetch(`${url}?${this.getAPIKeyParam()}`)
       .then(response => {
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
